@@ -1,18 +1,19 @@
 import java.util.Scanner;
 
+
 public class Duke {
 
     public static void main(String[] args) {
-
         greet();
+
     }
 
     private static void greet() {
-
         String str;
         String indent = "    ";
         Task[] tsk = new Task[100];
         String[] arrInput;
+
         int i = 0, j, input = 0;
         boolean flag;
 
@@ -24,41 +25,39 @@ public class Duke {
         str = in.nextLine();
 
         while (!str.equals("bye")) {
-
-            flag = true;
+            flag = false;
             arrInput = str.split(" ");
+
             try {
-                if (arrInput.length == 2) input = Integer.parseInt(arrInput[1]);
-            } catch (NumberFormatException e) {
+                if (arrInput.length == 2) {
+                    input = Integer.parseInt(arrInput[1]);
+                    flag = true;
+                }
+            }
+            catch (NumberFormatException e) {
                 flag = false;
             }
 
             if (str.equals("list")) {
-
                 System.out.println(indent + "------------");
                 System.out.println(indent + "Here are the tasks in your list:");
 
-                for (j = 0; j < i; j++) {
-                    System.out.println(indent + (j + 1) + ".[" + tsk[j].getStatusIcon() +
-                            "] " + tsk[j].description);
-                }
+                for (j = 0; j < i; j++)
+                    System.out.println(indent + (j + 1) + ".[" + tsk[j].getStatusIcon() + "] " + tsk[j].description);
 
                 System.out.println(indent + "------------");
                 str = in.nextLine();
-                continue;
-            } else if (flag && arrInput[0].equals("done")) {
-
+            }
+            else if (flag && arrInput[0].equals("done") && input <= i) {
                 tsk[input - 1].markAsDone();
 
                 System.out.println(indent + "------------");
                 System.out.println(indent + "Nice! I've marked this task as done:");
-                System.out.println(indent + "  [" + tsk[input - 1].getStatusIcon() + "] "
-                        + tsk[input - 1].description);
+                System.out.println(indent + "  [" + tsk[input - 1].getStatusIcon() + "] " + tsk[input - 1].description);
                 System.out.println(indent + "------------");
-
                 str = in.nextLine();
-            } else {
-
+            }
+            else {
                 tsk[i] = new Task(str);
                 System.out.println(indent + "------------");
                 System.out.println(indent + "added: " + str);
@@ -67,7 +66,6 @@ public class Duke {
                 i = i + 1;
             }
         }
-
         System.out.println(indent + "------------");
         System.out.println(indent + "Bye! Hope to see you again soon!");
         System.out.println(indent + "------------");
