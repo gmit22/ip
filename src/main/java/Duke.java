@@ -27,37 +27,34 @@ public class Duke {
         while (!str.equals("bye")) {
             flag = false;
             arrInput = str.split(" ");
-
+            //Checks if arr input is of len(2) and second input is an integer
             try {
                 if (arrInput.length == 2) {
                     input = Integer.parseInt(arrInput[1]);
                     flag = true;
                 }
-            }
-            catch (NumberFormatException e) {
+            }catch (NumberFormatException e) {
                 flag = false;
             }
-
+            //Checks what the user wants duke to do
             if (str.equals("list")) {
                 System.out.println(indent + "------------");
                 System.out.println(indent + "Here are the tasks in your list:");
 
-                for (j = 0; j < i; j++)
+                for (j = 0; j < i; j++) {
                     System.out.println(indent + (j + 1) + ".[" + tsk[j].getStatusIcon() + "] " + tsk[j].description);
-
+                }
                 System.out.println(indent + "------------");
                 str = in.nextLine();
-            }
-            else if (flag && arrInput[0].equals("done") && input <= i) {
+            }else if (flag && arrInput[0].equals("done") && input <= i) {
+                //sees if input containing done is of the valid type
                 tsk[input - 1].markAsDone();
-
                 System.out.println(indent + "------------");
                 System.out.println(indent + "Nice! I've marked this task as done:");
                 System.out.println(indent + "  [" + tsk[input - 1].getStatusIcon() + "] " + tsk[input - 1].description);
                 System.out.println(indent + "------------");
                 str = in.nextLine();
-            }
-            else {
+            }else {
                 tsk[i] = new Task(str);
                 System.out.println(indent + "------------");
                 System.out.println(indent + "added: " + str);
