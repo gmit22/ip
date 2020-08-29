@@ -2,88 +2,105 @@ import java.util.Scanner;
 
 
 public class Duke {
+    static String INDENT = "    ";
+
+    public static void printLine(int n) {
+        System.out.println(INDENT + "-".repeat(n));
+    }
+
+    public static void printGreeting() {
+        printLine(60);
+        System.out.println(INDENT + "Hello! I'm Duke \n    What can I do for you?");
+        printLine(60);
+    }
+
+    public static void exit() {
+        printLine(60);
+        System.out.println(INDENT + "Bye! Hope to see you again soon!");
+        printLine(60);
+    }
 
     public static void main(String[] args) {
-        greet();
-
-    }
-
-    private static void greet() {
-        String str;
-        String indent = "    ";
+        printGreeting();
         Task[] tsk = new Task[100];
-        String[] arrInput;
-
-        int i = 0, j, input = 0;
-        boolean flag;
-
-        System.out.println(indent + "------------");
-        System.out.println(indent + "Hello! I'm Duke \n    What can I do for you?");
-        System.out.println(indent + "------------");
-
         Scanner in = new Scanner(System.in);
-        str = in.nextLine();
+        String input;
+        input = in.nextLine();
+        String command;
 
-        while (!str.equals("bye")) {
-            flag = false;
-            arrInput = str.split(" ");
-            //Checks if arr input is of len(2) and second input is an integer
-            try {
-                if (arrInput.length == 2) {
-                    input = Integer.parseInt(arrInput[1]);
-                    flag = true;
-                }
-            }catch (NumberFormatException e) {
-                flag = false;
+        int spacePos;
+        String eventDone;
+
+        while (!input.equals("bye")) {
+            spacePos = input.indexOf(" ");
+            command = spacePos > 0 ? input.substring(0, spacePos) : input;
+
+            switch (command) {
+            case "bye":
+                exit();
+                break;
+            case "done":
+                eventDone = input.substring(spacePos + 1);
+                taskDone(tsk, eventDone);
+                break;
+            case "list":
+                //print list of items
+                listTasks(tsk);
+                break;
+            default:
+                addTask(tsk, input);
+                break;
             }
-            //Checks what the user wants duke to do
-            if (str.equals("list")) {
-                System.out.println(indent + "------------");
-                System.out.println(indent + "Here are the tasks in your list:");
-
-                for (j = 0; j < i; j++) {
-                    System.out.println(indent + (j + 1) + ".[" + tsk[j].getStatusIcon() + "] " + tsk[j].description);
-                }
-                System.out.println(indent + "------------");
-                str = in.nextLine();
-            }else if (flag && arrInput[0].equals("done") && input <= i) {
-                //sees if input containing done is of the valid type
-                tsk[input - 1].markAsDone();
-                System.out.println(indent + "------------");
-                System.out.println(indent + "Nice! I've marked this task as done:");
-                System.out.println(indent + "  [" + tsk[input - 1].getStatusIcon() + "] " + tsk[input - 1].description);
-                System.out.println(indent + "------------");
-                str = in.nextLine();
-            }else {
-                tsk[i] = new Task(str);
-                System.out.println(indent + "------------");
-                System.out.println(indent + "added: " + str);
-                System.out.println(indent + "------------");
-                str = in.nextLine();
-                i = i + 1;
-            }
-        }
-        System.out.println(indent + "------------");
-        System.out.println(indent + "Bye! Hope to see you again soon!");
-        System.out.println(indent + "------------");
-    }
-
-    public static class Task {
-        protected String description;
-        protected boolean isDone;
-
-        public Task(String description) {
-            this.description = description;
-            this.isDone = false;
-        }
-
-        public String getStatusIcon() {
-            return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols
-        }
-
-        public void markAsDone() {
-            this.isDone = true;
+            input = in.nextLine();
         }
     }
 
+    private static void taskDone(Task[] tsk, String eventDone) {
+        int index = extractTaskNumber(eventDone);
+
+        if (index == 0 | index > Task.getTaskCount()) {
+            printLine(60);
+            System.out.println(INDENT + "Invalid task number");
+        }else {
+            tsk[index - 1].markAsDone();
+            printLine(60);
+            System.out.println(INDENT + "Nice! I've marked this task as done:");
+            System.out.println(INDENT + "  [" + tsk[index - 1].getStatusIcon() + "] " + tsk[index - 1].description);
+            System.out.println(INDENT + "Type \"list\" to see a list of pending tasks");
+        }
+        printLine(60);
+    }
+
+    private static int extractTaskNumber(String command) {
+        int itemNo = 0;
+        try {
+            itemNo = Integer.parseInt(command);
+        }catch (NumberFormatException e) {
+            itemNo = 0;
+        }
+        return itemNo;
+    }
+
+    private static void addTask(Task[] tsk, String taskDescription) {
+        Task newTask = new Task(taskDescription);
+        tsk[Task.getTaskCount() - 1] = newTask;
+        printLine(60);
+        System.out.println(INDENT + "added: " + taskDescription);
+        printLine(60);
+    }
+
+    private static void listTasks(Task[] tsk) {
+        int j;
+        if (Task.getTaskCount() == 0) {
+            System.out.println(INDENT + "You currently have no tasks");
+            System.out.println(INDENT + "To update your to-do list, just type the task");
+        }else {
+            printLine(60);
+            System.out.println(INDENT + "Here are the tasks in your list:");
+            for (j = 0; j < Task.getTaskCount(); j++) {
+                System.out.println(INDENT + (j + 1) + ".[" + tsk[j].getStatusIcon() + "] " + tsk[j].description);
+            }
+        }
+        printLine(60);
+    }
 }
