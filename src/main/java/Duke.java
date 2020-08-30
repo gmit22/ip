@@ -131,7 +131,7 @@ public class Duke {
         int itemNo;
         try {
             itemNo = Integer.parseInt(command);
-        }catch (NumberFormatException e) {
+        } catch (NumberFormatException e) {
             itemNo = 0;
         }
         return itemNo;

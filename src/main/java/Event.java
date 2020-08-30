@@ -5,8 +5,6 @@ public class Event extends Task {
         super(description);
         this.at = at;
     }
-
-
     public String toString() {
         return "[E]" + super.toString() + " (at: " +at +")" ;
     }
