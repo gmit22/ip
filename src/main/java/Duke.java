@@ -19,7 +19,7 @@ public class Duke {
         String input;
         input = in.nextLine();
         String command;
-
+//        System.out.println(Task.getTaskCount());
         int spacePos;
         String eventDone;
 
@@ -49,7 +49,6 @@ public class Duke {
                 addEvent(tsk, eventTask);
                 break;
             default:
-                addTask(tsk, input);
                 break;
             }
             printLine(60);
