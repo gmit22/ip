@@ -1,3 +1,4 @@
+import java.util.NoSuchElementException;
 import java.util.Scanner;
 
 public class Duke {
@@ -23,8 +24,11 @@ public class Duke {
         int spacePos;
         String eventDone;
 
+        //loop runs till the user inputs bye in the cli
         while (!input.equals("bye")) {
+            //this is to see the command details after the type of event is mentioned
             spacePos = input.indexOf(" ");
+            //Type of task to be added, stored in command
             command = spacePos > 0 ? input.substring(0, spacePos) : input;
             printLine(60);
             switch (command) {
@@ -49,6 +53,7 @@ public class Duke {
                 addEvent(tsk, eventTask);
                 break;
             default:
+                System.out.println(" ☹ OOPS!!! It seems that you have entered a wrong command :-(!");
                 break;
             }
             printLine(60);
@@ -66,35 +71,45 @@ public class Duke {
     }
 
     private static void addEvent(Task[] tsk, String eventTask) {
-        int slot = eventTask.indexOf("/");
-        String description = eventTask.substring(0, slot - 1);
-        Event newItem = new Event(description, eventTask.substring(slot + 4));
-        tsk[Task.getTaskCount() - 1] = newItem;
-
-        System.out.println("\t" + "Got it. I've added this to your custom-list: ");
-        System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
-        System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        try {
+            int slot = eventTask.indexOf("/");
+            String description = eventTask.substring(0, slot - 1);
+            Event newItem = new Event(description, eventTask.substring(slot + 4));
+            tsk[Task.getTaskCount() - 1] = newItem;
+            System.out.println("\t" + "Got it. I've added this to your custom-list: ");
+            System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
+            System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        }catch(StringIndexOutOfBoundsException s){
+            System.out.println("\t" + "Event should contain a time slot.");
+        }
     }
 
     private static void addDeadline(Task[] tsk, String deadlineTask) {
+        try{
         int deadline = deadlineTask.indexOf("/");
         String description = deadlineTask.substring(0, deadline - 1);
         Deadline newItem = new Deadline(description, deadlineTask.substring(deadline + 4));
         tsk[Task.getTaskCount() - 1] = newItem;
-
         System.out.println("\t" + "Got it. I've added this to your custom-list: ");
         System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
         System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        }catch(StringIndexOutOfBoundsException s){
+            System.out.println("\t" + "Deadline should contain a due date for the task.");
+        }
     }
 
     private static void addToDo(Task[] tsk, String input) {
-        ToDo newItem = new ToDo(input);
-        tsk[Task.getTaskCount() - 1] = newItem;
-        System.out.println("\t Got it. I've added this to your custom-list: ");
-        System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
-        System.out.println("\t Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        if (input.equals("todo")){
+            System.out.println("\t ☹ OOPS!!! The description of a todo cannot be empty.");
+        }else {
+            ToDo newItem = new ToDo(input);
+            tsk[Task.getTaskCount() - 1] = newItem;
+            System.out.println("\t Got it. I've added this to your custom-list: ");
+            System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
+            System.out.println("\t Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        }
     }
-
+//comment
     private static void taskDone(Task[] tsk, String eventDone) {
         int index = extractTaskNumber(eventDone);
         if (index == 0 | index > Task.getTaskCount()) {
@@ -114,13 +129,12 @@ public class Duke {
     }
 
     private static void listTasks(Task[] tsk) {
-        int j;
         if (Task.getTaskCount() == 0) {
             System.out.println("\t" + "You currently have no tasks");
             System.out.println("\t" + "To update your to-do list, just type the task");
         } else {
             System.out.println("\t" + "Here are the tasks in your list:");
-            for (j = 0; j < Task.getTaskCount(); j++) {
+            for (int j = 0; j < Task.getTaskCount(); j++) {
                 System.out.println("\t" + (j + 1) + ". " + tsk[j].toString());
             }
         }
