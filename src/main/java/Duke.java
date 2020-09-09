@@ -1,4 +1,5 @@
-import java.util.NoSuchElementException;
+import Task.Task;
+
 import java.util.Scanner;
 
 public class Duke {
@@ -20,7 +21,7 @@ public class Duke {
         String input;
         input = in.nextLine();
         String command;
-//        System.out.println(Task.getTaskCount());
+//        System.out.println(Task.Task.getTaskCount());
         int spacePos;
         String eventDone;
 
@@ -80,7 +81,7 @@ public class Duke {
             System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
             System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
         }catch(StringIndexOutOfBoundsException s){
-            System.out.println("\t" + "Event should contain a time slot.");
+            System.out.println("\t" + "Task.Event should contain a time slot.");
         }
     }
 
@@ -94,7 +95,7 @@ public class Duke {
         System.out.println("\t\t" + tsk[Task.getTaskCount() - 1].toString());
         System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
         }catch(StringIndexOutOfBoundsException s){
-            System.out.println("\t" + "Deadline should contain a due date for the task.");
+            System.out.println("\t" + "Task.Deadline should contain a due date for the task.");
         }
     }
 
