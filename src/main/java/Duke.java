@@ -126,7 +126,7 @@ public class Duke {
             System.out.println("\t" + "Type \"list\" to see a list of pending tasks");
         }
     }
-
+//
     private static void addTask(Task[] taskList, String taskDescription) {
         Task newTask = new Task(taskDescription);
         taskList[Task.getTaskCount() - 1] = newTask;
