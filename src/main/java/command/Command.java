@@ -36,7 +36,6 @@ public class Command {
             throw new DukeException(ExceptionType.UNIDENTIFIED);
         }
     }
-
     public String getMessage() {
         return message;
     }
