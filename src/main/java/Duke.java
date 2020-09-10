@@ -1,135 +1,150 @@
-import tasks.Task;
+import command.Command;
+import command.CommandExecute;
+import exception.DukeException;
+import exception.ExceptionType;
 import tasks.Deadline;
-import tasks.Event;
+import tasks.Task;
 import tasks.ToDo;
 
 import java.util.Scanner;
 
 public class Duke {
 
-    public static void printLine(int n) {
-        System.out.println("\t" + "-".repeat(n));
-    }
+    public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
+    public static final String LINE_SEPARATOR = "-".repeat(60);
 
     public static void printGreeting() {
-        printLine(60);
+        System.out.println(LINE_SEPARATOR);
         System.out.println("\t" + "Hello! I'm Duke \n    What can I do for you?");
-        printLine(60);
+        System.out.println(LINE_SEPARATOR);
     }
 
     public static void main(String[] args) {
         printGreeting();
         Task[] taskList = new Task[100];
+
         Scanner in = new Scanner(System.in);
-        String input;
-        input = in.nextLine();
-        String command;
-//        System.out.println(Task.Task.getTaskCount());
-        int spacePos;
-        String eventDone;
+        Command input = new Command(in.nextLine());
 
         //loop runs till the user inputs bye in the cli
-        while (!input.equals("bye")) {
-            //this is to see the command details after the type of event is mentioned
-            spacePos = input.indexOf(" ");
-            //Type of task to be added, stored in command
-            command = spacePos > 0 ? input.substring(0, spacePos) : input;
-            printLine(60);
-            switch (command) {
-            case "done":
-                eventDone = input.substring(spacePos + 1);
-                taskDone(taskList, eventDone);
-                break;
-            case "list":
-                //print list of items
-                listTasks(taskList);
-                break;
-            case "todo":
-                String toDoTask = input.substring(spacePos + 1);
-                addToDo(taskList, toDoTask);
-                break;
-            case "deadline":
-                String deadlineTask = input.substring(spacePos + 1);
-                addDeadline(taskList, deadlineTask);
-                break;
-            case "event":
-                String eventTask = input.substring(spacePos + 1);
-                addEvent(taskList, eventTask);
-                break;
-            default:
-                System.out.println(" ☹ OOPS!!! It seems that you have entered a wrong command :-(!");
-                break;
+        while (true) {
+            try {
+                CommandExecute type = input.extractType();
+                System.out.println(LINE_SEPARATOR);
+                switch (type) {
+                case MARK_DONE:
+                    int taskNumber = extractTaskNumber(input.getMessage());
+                    taskDone(taskList, taskNumber);
+                    break;
+                case LIST:
+                    //print list of items
+                    listTasks(taskList);
+                    break;
+                case TODO:
+                    String toDoTask = input.getMessage();
+                    addToDo(taskList, toDoTask);
+                    break;
+                case DEADLINE:
+                    String deadlineTask = input.getMessage();
+                    addDeadline(taskList, deadlineTask);
+                    break;
+                case EVENT:
+                    String eventTask = input.getMessage();
+                    addEvent(taskList, eventTask);
+                    break;
+                case EXIT:
+                    exit();
+                    break;
+                default:
+                    System.out.println(" ☹ OOPS!!! It seems that you have entered a wrong command :-(!");
+                    break;
+                }
+                if (type == CommandExecute.EXIT) {
+                    break;
+                }
+            } catch (DukeException e) {
+                System.out.println(e);
             }
-            printLine(60);
-            input = in.nextLine();
+            System.out.println(LINE_SEPARATOR);
+            input = new Command(in.nextLine());
         }
-        exit();
     }
 
     public static void exit() {
-        printLine(60);
-        System.out.println("\t" + "Bye! Hope to see you again soon!");
+        System.out.println(LINE_SEPARATOR);
+        System.out.println("\t" + EXIT_MESSAGE);
         System.out.println("\tYou currently have " + Task.getTaskLeft() + " tasks left");
         System.out.println("\t" + "Happy to help you organize work. Anywhere, anytime!");
-        printLine(60);
+        System.out.println(LINE_SEPARATOR);
     }
 
-    private static void addEvent(Task[] taskList, String eventTask) {
-        try {
-            int slot = eventTask.indexOf("/");
-            String description = eventTask.substring(0, slot - 1);
-            Event newItem = new Event(description, eventTask.substring(slot + 4));
-            taskList[Task.getTaskCount() - 1] = newItem;
-            System.out.println("\t" + "Got it. I've added this to your custom-list: ");
-            System.out.println("\t\t" + taskList[Task.getTaskCount() - 1].toString());
-            System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
-        }catch(StringIndexOutOfBoundsException s){
-            System.out.println("\t" + "Task.Event should contain a time slot.");
+    private static void addEvent(Task[] taskList, String eventTask) throws DukeException {
+
+        String[] taskDetails = eventTask.trim().split("/at");
+        if (taskDetails[0].equals("deadline")) {
+            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
         }
-    }
-
-    private static void addDeadline(Task[] taskList, String deadlineTask) {
-        try{
-        int deadline = deadlineTask.indexOf("/");
-        String description = deadlineTask.substring(0, deadline - 1);
-        Deadline newItem = new Deadline(description, deadlineTask.substring(deadline + 4));
+        if (!eventTask.contains("/at")) {
+            throw new DukeException(ExceptionType.MISSING_IDENTIFIER);
+        }
+        if (taskDetails.length < 2) {
+            throw new DukeException(ExceptionType.MISSING_ON_TIME);
+        }
+        String description = taskDetails[0].substring(6).trim();
+        String by = taskDetails[1].trim();
+        Deadline newItem = new Deadline(description, by);
         taskList[Task.getTaskCount() - 1] = newItem;
         System.out.println("\t" + "Got it. I've added this to your custom-list: ");
         System.out.println("\t\t" + taskList[Task.getTaskCount() - 1].toString());
         System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
-        }catch(StringIndexOutOfBoundsException s){
-            System.out.println("\t" + "Task.Deadline should contain a due date for the task.");
-        }
     }
 
-    private static void addToDo(Task[] taskList, String input) {
-        if (input.equals("todo")){
-            System.out.println("\t ☹ OOPS!!! The description of a todo cannot be empty.");
-        }else {
-            ToDo newItem = new ToDo(input);
+    private static void addDeadline(Task[] taskList, String deadlineTask) throws DukeException {
+
+        String[] taskDetails = deadlineTask.trim().split("/by");
+        if (taskDetails[0].equals("deadline")) {
+            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
+        }
+        if (!deadlineTask.contains("/by")) {
+            throw new DukeException(ExceptionType.MISSING_IDENTIFIER);
+        }
+        if (taskDetails.length < 2) {
+            throw new DukeException(ExceptionType.MISSING_ON_TIME);
+        }
+        String description = taskDetails[0].substring(9).trim();
+        String by = taskDetails[1].trim();
+        Deadline newItem = new Deadline(description, by);
+        taskList[Task.getTaskCount() - 1] = newItem;
+        System.out.println("\t" + "Got it. I've added this to your custom-list: ");
+        System.out.println("\t\t" + taskList[Task.getTaskCount() - 1].toString());
+        System.out.println("\t" + "Now you have " + Task.getTaskCount() + " tasks in your list :)");
+    }
+
+    private static void addToDo(Task[] taskList, String toDoTask) throws DukeException {
+        try {
+            String taskDetails = toDoTask.substring(5).trim();
+            ToDo newItem = new ToDo(taskDetails);
             taskList[Task.getTaskCount() - 1] = newItem;
             System.out.println("\t Got it. I've added this to your custom-list: ");
             System.out.println("\t\t" + taskList[Task.getTaskCount() - 1].toString());
             System.out.println("\t Now you have " + Task.getTaskCount() + " tasks in your list :)");
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
         }
     }
-//comment
-    private static void taskDone(Task[] taskList, String eventDone) {
-        int index = extractTaskNumber(eventDone);
-        if (index == 0 | index > Task.getTaskCount()) {
-            System.out.println("\t" + "Invalid task number");
+    //comment
+    private static void taskDone(Task[] taskList, int taskNumber) throws DukeException {
+        
+        if (taskNumber <= 0) {
+            throw new DukeException(ExceptionType.NOT_A_NUMBER);
+        } else if (taskNumber > Task.getTaskCount()) {
+            throw new DukeException(ExceptionType.INVALID_NUMBER);
         } else {
-            taskList[index - 1].markAsDone();
-            Task.markTaskCompleted();
+            taskList[taskNumber - 1].markAsDone();
             System.out.println("\t" + "Nice! I've marked this task as done:");
-            System.out.println("\t\t" + taskList[index - 1].toString());
+            System.out.println("\t\t" + taskList[taskNumber - 1].toString());
             System.out.println("\t" + "Type \"list\" to see a list of pending tasks");
         }
-    }
-
-    private static void addTask(Task[] taskList, String taskDescription) {
-        Task newTask = new Task(taskDescription);
-        taskList[Task.getTaskCount() - 1] = newTask;
     }
 
     private static void listTasks(Task[] taskList) {
@@ -144,11 +159,14 @@ public class Duke {
         }
     }
 
-    private static int extractTaskNumber(String command) {
+    private static int extractTaskNumber(String command){
         int itemNo;
         try {
-            itemNo = Integer.parseInt(command);
+            String itemNumber = command.trim().substring(5, command.length()).trim();
+            itemNo = Integer.parseInt(itemNumber);
         } catch (NumberFormatException e) {
+            itemNo = 0;
+        }catch (StringIndexOutOfBoundsException e){
             itemNo = 0;
         }
         return itemNo;

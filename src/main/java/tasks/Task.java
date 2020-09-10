@@ -1,6 +1,6 @@
 package tasks;
 
-public class Task {
+public abstract class Task {
     protected static int taskCount = 0;
     protected static int taskLeft = 0;
     protected String description;
@@ -15,9 +15,6 @@ public class Task {
     public static int getTaskCount() {
         return taskCount;
     }
-    public static void markTaskCompleted() {
-        taskLeft--;
-    }
     public static int getTaskLeft() {
         return taskLeft;
     }
@@ -26,6 +23,7 @@ public class Task {
     }
     public void markAsDone() {
         this.isDone = true;
+        taskLeft--;
     }
     public String toString() {
         return "[" + this.getStatusIcon() + "] " + this.description;
