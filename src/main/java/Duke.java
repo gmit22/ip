@@ -2,8 +2,6 @@ import command.Command;
 import command.CommandExecute;
 import exception.DukeException;
 import exception.ExceptionType;
-
-
 import tasks.Task;
 import tasks.TaskManager;
 
@@ -12,7 +10,9 @@ import java.util.Scanner;
 public class Duke {
 
     public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
-    public static final String LINE_SEPARATOR = "\t"+"-".repeat(60);
+    public static final String LINE_SEPARATOR = "\t" + "-".repeat(60);
+    public static final String TASK_AT = "/at";
+    public static final String TASK_BY = "/by";
 
     public static void printGreeting() {
         System.out.println(LINE_SEPARATOR);
@@ -61,7 +61,7 @@ public class Duke {
                     removeTask(taskList, id);
                     break;
                 default:
-                    System.out.println(" ☹ OOPS!!! It seems that you have entered a wrong command :-(!");
+                    System.out.println("It seems like you entered an unidentified command :(");
                     break;
                 }
                 if (type == CommandExecute.EXIT) {
@@ -82,7 +82,7 @@ public class Duke {
         System.out.println(LINE_SEPARATOR);
     }
 
-    private static void removeTask(TaskManager taskList, int id){
+    private static void removeTask(TaskManager taskList, int id) {
         Task task = taskList.deleteTask(id);
         System.out.println("\tNoted. I've removed this task:");
         System.out.println("\t\t" + task.toString());
@@ -96,11 +96,11 @@ public class Duke {
     }
 
     private static void addEvent(TaskManager taskList, String eventTask) throws DukeException {
-        String[] taskDetails = eventTask.trim().split("/at");
+        String[] taskDetails = eventTask.trim().split(TASK_AT);
         if (taskDetails[0].equals("deadline")) {
-            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
-        if (!eventTask.contains("/at")) {
+        if (!eventTask.contains(TASK_AT)) {
             throw new DukeException(ExceptionType.MISSING_IDENTIFIER);
         }
         if (taskDetails.length < 2) {
@@ -115,12 +115,12 @@ public class Duke {
 
     private static void addDeadline(TaskManager taskList, String deadlineTask) throws DukeException {
 
-        String[] taskDetails = deadlineTask.trim().split("/by");
-        if (!deadlineTask.contains("/by")) {
+        String[] taskDetails = deadlineTask.trim().split(TASK_BY);
+        if (!deadlineTask.contains(TASK_BY)) {
             throw new DukeException(ExceptionType.MISSING_IDENTIFIER);
         }
         if (taskDetails[0].equals("deadline")) {
-            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
         if (taskDetails.length < 2) {
             throw new DukeException(ExceptionType.MISSING_ON_TIME);
@@ -139,7 +139,7 @@ public class Duke {
             task = taskList.addToDO(taskDetails);
             printTaskAddedMessage(task, taskList.getTaskCount());
         } catch (StringIndexOutOfBoundsException e) {
-            throw new DukeException(ExceptionType.MISSING_DESCRIPTION);
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
     }
     //comment
