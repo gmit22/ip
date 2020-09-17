@@ -14,24 +14,25 @@ public class Command {
     public CommandExecute extractType() throws DukeException {
         message = message.trim();
         String command = message;
-        if(message.contains(" ")) {
+        if (message.contains(" ")) {
             command = message.split(" ")[0];
         }
-        if(command.equalsIgnoreCase("bye")) {
+        if (command.equalsIgnoreCase("bye")) {
             return CommandExecute.EXIT;
-        } else if(command.equalsIgnoreCase("list")) {
+        } else if (command.equalsIgnoreCase("list")) {
             return CommandExecute.LIST;
-        } else if(command.equalsIgnoreCase("done")) {
+        } else if (command.equalsIgnoreCase("done")) {
             return CommandExecute.MARK_DONE;
-        } else if(message.length()<4) {
+        } else if (message.length() < 4) {
             throw new DukeException(ExceptionType.UNIDENTIFIED);
-        }
-        if(command.equalsIgnoreCase("todo")){
+        } else if (command.equalsIgnoreCase("todo")) {
             return CommandExecute.TODO;
-        } else if(command.equalsIgnoreCase("deadline")){
+        } else if (command.equalsIgnoreCase("deadline")) {
             return CommandExecute.DEADLINE;
-        } else if(command.equalsIgnoreCase("event")) {
+        } else if (command.equalsIgnoreCase("event")) {
             return CommandExecute.EVENT;
+        } else if (command.equalsIgnoreCase("delete")) {
+            return CommandExecute.DELETE;
         } else {
             throw new DukeException(ExceptionType.UNIDENTIFIED);
         }
