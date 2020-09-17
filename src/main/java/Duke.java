@@ -24,8 +24,8 @@ public class Duke {
 
     /*path for home directory*/
     private static final String root = System.getProperty("user.dir");
-    private static final Path dirPath = Paths.get(root, "data");
-    private static final Path filePath = Paths.get(root, "data", "data.txt");
+    private static final Path dirPath = Paths.get( "data");
+    private static final Path filePath = Paths.get( "data", "data.txt");
     private static final boolean directoryExists = Files.exists(dirPath);
     private static final int LEN_LINE_SEPARATOR = 60;
     public static final String LINE_SEPARATOR = "\t" + "-".repeat(LEN_LINE_SEPARATOR);
@@ -159,7 +159,7 @@ public class Duke {
             throw new DukeException(ExceptionType.INVALID_NUMBER);
         } else {
             Task task = TaskManager.markAsDone(taskNumber);
-            Messages.printTaskAddedMessage(task, taskList.getTaskCount());
+            Messages.printTaskDone(task, taskList.getTaskCount());
         }
     }
     private static TaskManager createTaskManager(FileManager fileManager) throws IOException {

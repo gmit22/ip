@@ -14,6 +14,11 @@ public class Messages {
         System.out.println("\t" + "Now you have " + taskCount + " tasks in your list :)");
     }
 
+    public static void printTaskDone(Task task, int taskCount) {
+        System.out.println("\t" + "Got it. I've marked this task as done: ");
+        System.out.println("\t\t" + task.toString());
+    }
+
     public static void removeTask(TaskManager taskList, int id) {
         Task task = TaskManager.deleteTask(id);
         System.out.println("\tNoted. I've removed this task:");
