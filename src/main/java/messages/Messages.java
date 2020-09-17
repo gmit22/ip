@@ -4,7 +4,7 @@ import tasks.Task;
 import tasks.TaskManager;
 
 public class Messages {
-    public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
+    public static final String EXIT_MESSAGE = "Bye! Dobby is now free!";
     private static final int LEN_LINE_SEPARATOR = 60;
     public static final String LINE_SEPARATOR = "\t" + "-".repeat(LEN_LINE_SEPARATOR);
 
@@ -34,7 +34,7 @@ public class Messages {
     }
     public static void printGreeting() {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("\t" + "Hello! I'm Duke \n\tWhat can I do for you?");
+        System.out.println("\t" + "Hello Master! I'm Dobby \n\tWhat can I do for you?");
         System.out.println(LINE_SEPARATOR);
     }
 
