@@ -9,14 +9,12 @@ public abstract class Task {
     public Task(String description) {
         this.description = description;
         this.isDone = false;
-        taskCount++;
-        taskLeft++;
     }
-    public static int getTaskCount() {
-        return taskCount;
+    public String getDescription() {
+        return description;
     }
-    public static int getTaskLeft() {
-        return taskLeft;
+    public boolean getIsDone(){
+        return isDone;
     }
     public String getStatusIcon() {
         return (isDone ? "\u2713" : "\u2718"); //return tick or X symbols

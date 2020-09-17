@@ -1,3 +1,11 @@
+todo read book
+deadline return book /by Dec 29
+event project meeting /at Mar 22th 12-2am
 list
-todo read books
+deadline return book /by Sunday
+deadline do homework /by whenever
+list
+done 1
+delete 2
+list
 bye
