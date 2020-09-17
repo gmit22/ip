@@ -61,8 +61,10 @@ public class TaskManager {
     }
     public static Task markAsDone(int id) {
         Task task = taskList.get(id - 1);
+        if (!task.isDone) {
+            taskLeft--;
+        }
         task.markAsDone();
-        taskLeft--;
         return task;
     }
     /**
@@ -103,10 +105,12 @@ public class TaskManager {
             }
 
             if (taskDetails[1].equals("1")) {
+                taskLeft--;
                 task.markAsDone();
             }
         }
     }
+
 
     public void writeToFile() throws IOException {
         StringBuilder lines = new StringBuilder();

@@ -4,7 +4,7 @@ import tasks.Task;
 import tasks.TaskManager;
 
 public class Messages {
-    public static final String EXIT_MESSAGE = "Bye! Hope to see you again soon!";
+    public static final String EXIT_MESSAGE = "Bye! Dobby is now free!";
     private static final int LEN_LINE_SEPARATOR = 60;
     public static final String LINE_SEPARATOR = "\t" + "-".repeat(LEN_LINE_SEPARATOR);
 
@@ -12,6 +12,11 @@ public class Messages {
         System.out.println("\t" + "Got it. I've added this to your custom-list: ");
         System.out.println("\t\t" + task.toString());
         System.out.println("\t" + "Now you have " + taskCount + " tasks in your list :)");
+    }
+
+    public static void printTaskDone(Task task, int taskCount) {
+        System.out.println("\t" + "Got it. I've marked this task as done: ");
+        System.out.println("\t\t" + task.toString());
     }
 
     public static void removeTask(TaskManager taskList, int id) {
@@ -29,7 +34,7 @@ public class Messages {
     }
     public static void printGreeting() {
         System.out.println(LINE_SEPARATOR);
-        System.out.println("\t" + "Hello! I'm Duke \n\tWhat can I do for you?");
+        System.out.println("\t" + "Hello Master! I'm Dobby \n\tWhat can I do for you?");
         System.out.println(LINE_SEPARATOR);
     }
 

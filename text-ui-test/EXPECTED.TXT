@@ -43,9 +43,8 @@
 	5. [D][✘] do homework (by: whenever)
 	------------------------------------------------------------
 	------------------------------------------------------------
-	Got it. I've added this to your custom-list:
+	Got it. I've marked this task as done:
 		[T][✓] read book
-	Now you have 5 tasks in your list :)
 	------------------------------------------------------------
 	------------------------------------------------------------
 	Noted. I've removed this task:
