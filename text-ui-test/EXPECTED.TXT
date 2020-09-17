@@ -15,14 +15,14 @@
 	------------------------------------------------------------
 	------------------------------------------------------------
 	Got it. I've added this to your custom-list:
-		[E][✘] project meeting (at: Mar 22th 12-2pam)
+		[E][✘] project meeting (at: Mar 22th 12-2am)
 	Now you have 3 tasks in your list :)
 	------------------------------------------------------------
 	------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][✘] read book
 	2. [D][✘] return book (by: Dec 29)
-	3. [E][✘] project meeting (at: Mar 22th 12-2pam)
+	3. [E][✘] project meeting (at: Mar 22th 12-2am)
 	------------------------------------------------------------
 	------------------------------------------------------------
 	Got it. I've added this to your custom-list:
@@ -38,7 +38,7 @@
 	Here are the tasks in your list:
 	1. [T][✘] read book
 	2. [D][✘] return book (by: Dec 29)
-	3. [E][✘] project meeting (at: Mar 22th 12-2pam)
+	3. [E][✘] project meeting (at: Mar 22th 12-2am)
 	4. [D][✘] return book (by: Sunday)
 	5. [D][✘] do homework (by: whenever)
 	------------------------------------------------------------
@@ -55,7 +55,7 @@
 	------------------------------------------------------------
 	Here are the tasks in your list:
 	1. [T][✓] read book
-	2. [E][✘] project meeting (at: Mar 22th 12-2pam)
+	2. [E][✘] project meeting (at: Mar 22th 12-2am)
 	3. [D][✘] return book (by: Sunday)
 	4. [D][✘] do homework (by: whenever)
 	------------------------------------------------------------

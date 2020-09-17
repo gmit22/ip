@@ -1,6 +1,6 @@
 todo read book
 deadline return book /by Dec 29
-event project meeting /at Mar 22th 12-2pam
+event project meeting /at Mar 22th 12-2am
 list
 deadline return book /by Sunday
 deadline do homework /by whenever
