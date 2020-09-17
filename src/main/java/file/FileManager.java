@@ -6,24 +6,23 @@ import java.io.*;
 
 public class FileManager {
 
-    private String filePath;
+    private final String filePath;
 
     public FileManager(String filePath) {
         this.filePath = filePath;
     }
-    public static void createDirectory(String dirPath) throws IOException {
-        File file = new File(dirPath);
-        try {
-            if (file.mkdir()) {
-                System.out.println("Directory created at location: " + file.getCanonicalPath());
-            } else {
-                System.out.println("Directory already exists at location: " + file.getCanonicalPath());
-            }
-        } catch (IOException e) {
-            System.out.println(e);
-            throw e;
-        }
-    }
+//    public static void createDirectory(String dirPath) throws IOException {
+//        File file = new File(dirPath);
+//        try {
+//            if (file.mkdir()) {
+//                System.out.println("Directory created at location: " + file.getCanonicalPath());
+//            } else {
+//                System.out.println("Directory already exists at location: " + file.getCanonicalPath());
+//            }
+//        } catch (IOException e) {
+//            throw e;
+//        }
+//    }
     public String getFilePath() {
         return filePath;
     }
@@ -32,12 +31,11 @@ public class FileManager {
 
         try {
             if (file.createNewFile()) {
-                System.out.println("File created at location: " + file.getCanonicalPath());
+                System.out.println("\tFile created at location: " + file.getCanonicalPath());
             } else {
-                System.out.println("File already exists at location: " + file.getCanonicalPath());
+                System.out.println("\tFile already exists at location: " + file.getCanonicalPath());
             }
         } catch (IOException e) {
-            System.out.println(e);
             throw e;
         }
     }
@@ -58,7 +56,7 @@ public class FileManager {
         }
     }
 
-    public void saveToFile(String line) throws IOException {
+    public void saveToFile(String line) {
         File file = new File(filePath);
         FileWriter fr = null;
 
