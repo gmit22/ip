@@ -11,6 +11,7 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -89,7 +90,7 @@ public class Duke {
                     break;
                 case LIST:
                     //print list of items
-                    TaskManager.listTasks();
+                    ui.listTasks(taskList);
                     break;
                 case TODO:
                     String toDoTask = input.getMessage().substring(5).trim();
@@ -97,13 +98,13 @@ public class Duke {
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
                     break;
                 case DEADLINE:
-                    String deadlineTask = input.getMessage();
+                    String deadlineTask = input.getMessage().substring(9).trim();
                     taskDetails = deadlineTask.trim().split(TASK_BY);
                     task = TaskManager.addDeadline(taskDetails);
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
                     break;
                 case EVENT:
-                    String eventTask = input.getMessage();
+                    String eventTask = input.getMessage().substring(6);
                     taskDetails = eventTask.trim().split(TASK_AT);
                     task = TaskManager.addEvent(taskDetails);
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
@@ -113,7 +114,13 @@ public class Duke {
                     break;
                 case DELETE:
                     int id = Integer.parseInt(input.getMessage().substring(7));
-                    ui.removeTask(taskList, id);
+                    task = TaskManager.deleteTask(id);
+                    ui.removeTask(task, taskList.getTaskCount());
+                    break;
+                case FIND:
+                    String keyWord = input.getMessage().substring(5).trim();
+                    ArrayList<Task> foundTasks = TaskManager.findTask(keyWord);
+                    ui.printFoundTasks(foundTasks, taskList);
                     break;
                 default:
                     ui.printCommandNotFound();

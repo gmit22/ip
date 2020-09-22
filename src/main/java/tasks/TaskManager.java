@@ -39,7 +39,7 @@ public class TaskManager {
         if (deadlineTask.length < 2) {
             throw new DukeException(ExceptionType.MISSING_ON_TIME);
         }
-        String description = deadlineTask[0].substring(9).trim();
+        String description = deadlineTask[0].trim();
         String by = deadlineTask[1].trim();
         Deadline deadline = new Deadline(description, by);
         addTask(deadline);
@@ -65,31 +65,35 @@ public class TaskManager {
         if (eventTask.length < 2) {
             throw new DukeException(ExceptionType.MISSING_ON_TIME);
         }
-        String description = eventTask[0].substring(6).trim();
+        String description = eventTask[0].trim();
         String at = eventTask[1].trim();
         Event event = new Event(description, at);
         addTask(event);
         return event;
     }
 
-    public static void listTasks() {
-        if (taskCount == 0) {
-            System.out.println("\t" + "You currently have no tasks");
-            System.out.println("\t" + "To update your to-do list, just type the task");
-        } else {
-            System.out.println("\t" + "Here are the tasks in your list:");
-            for (int j = 0; j < taskCount; j++) {
-                System.out.println("\t" + (j + 1) + ". " + taskList.get(j).toString());
+    public static ArrayList<Task> findTask(String keyword){
+        ArrayList<Task> foundTasks = new ArrayList<>(MAX_TASKS);
+
+        for (Task task: taskList){
+            if (task.description.contains(keyword)){
+                foundTasks.add(task);
             }
         }
+        return foundTasks;
     }
 
+
+
     public static Task deleteTask(int id) {
-        Task task = taskList.get(id - 1);
-        taskList.remove(id - 1);
-        taskCount--;
-        if (!task.isDone) {
-            taskLeft--;
+        Task task= null;
+        if (id <= taskCount) {
+            task = taskList.get(id - 1);
+            taskList.remove(id - 1);
+            taskCount--;
+            if (!task.isDone) {
+                taskLeft--;
+            }
         }
         return task;
     }
@@ -126,7 +130,7 @@ public class TaskManager {
     public int getTaskLeft() {
         return taskLeft;
     }
-    private Task getTask(int id) {
+    public Task getTask(int id) {
         return taskList.get(id);
     }
 

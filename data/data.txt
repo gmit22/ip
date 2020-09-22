@@ -1,2 +1,2 @@
-T | 0 | work hard
 T | 1 | hello
+D | 0 | submit project | null

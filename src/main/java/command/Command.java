@@ -3,12 +3,39 @@ package command;
 import exception.DukeException;
 import exception.ExceptionType;
 
+import java.time.LocalDate;
+import java.time.LocalTime;
+import java.time.format.DateTimeParseException;
+
 public class Command {
 
     private String message;
 
     public Command(String message) {
         this.message = message;
+    }
+
+    public static LocalDate parseDate(String line) {
+        String[] params = line.split("\\s+");
+        LocalDate date = null;
+        for (String d : params) {
+            try {
+                date = LocalDate.parse(d);
+            } catch (DateTimeParseException e) {
+            }
+        }
+        return date;
+    }
+    public static LocalTime parseTime(String line) {
+        String[] params = line.split("\\s+");
+        LocalTime time = null;
+        for (String d : params) {
+            try {
+                time = LocalTime.parse(d);
+            } catch (DateTimeParseException e) {
+            }
+        }
+        return time;
     }
 
     public CommandExecute extractType() throws DukeException {
@@ -33,6 +60,8 @@ public class Command {
             return CommandExecute.EVENT;
         } else if (command.equalsIgnoreCase("delete")) {
             return CommandExecute.DELETE;
+        } else if (command.equalsIgnoreCase("find")) {
+            return CommandExecute.FIND;
         } else {
             throw new DukeException(ExceptionType.UNIDENTIFIED);
         }
@@ -40,7 +69,6 @@ public class Command {
     public String getMessage() {
         return message;
     }
-
     public int extractTaskNumber() {
         int itemNo;
         try {

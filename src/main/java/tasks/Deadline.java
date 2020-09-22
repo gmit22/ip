@@ -1,17 +1,25 @@
 package tasks;
 
 public class Deadline extends Task {
-    String date;
+    String by;
 
-    public Deadline(String description, String date) {
+    public Deadline(String description, String by) {
         super(description);
-        this.date = date;
+        this.by = by;
+        setDateTime(by);
     }
     public String getBy(){
-        return date;
+        return by;
     }
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        String dateFormatted = "";
+        if (hasDate && hasTime){
+            dateFormatted = getFormattedDate() + " " + getFormattedTime();
+        }else{
+            dateFormatted = by;
+        }
+        return "[D]" + super.toString() + " (by: " + dateFormatted + ")";
     }
+
 }

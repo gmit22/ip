@@ -7,5 +7,6 @@ public enum CommandExecute {
     TODO,
     EVENT,
     DEADLINE,
-    DELETE
+    DELETE,
+    FIND
 }
