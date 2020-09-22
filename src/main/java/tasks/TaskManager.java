@@ -1,14 +1,18 @@
 package tasks;
 
 import exception.DukeException;
+import exception.ExceptionType;
 import file.FileManager;
 
 import java.io.BufferedReader;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 
 
 public class TaskManager {
+
 
     private static final int MAX_TASKS = 100;
     private static final ArrayList<Task> taskList = new ArrayList<>(MAX_TASKS);
@@ -16,30 +20,58 @@ public class TaskManager {
     private static int taskLeft = 0;
     private final FileManager fileManager;
 
-    public TaskManager(FileManager fileManager) throws DukeException {
+    public TaskManager(FileManager fileManager) throws DukeException, FileNotFoundException {
         this.fileManager = fileManager;
         fileManager.parseFile(this);
     }
 
-
-    private static Task addTask(Task task) {
+    private static void addTask(Task task) {
         taskList.add(task);
         taskCount++;
         taskLeft++;
-        return task;
     }
-    public static Task addEvent(String description, String at) {
-        Event event = new Event(description, at);
-        return addTask(event);
-    }
-    public static Task addDeadline(String description, String by) {
+
+    public static Task addDeadline(String[] deadlineTask) throws DukeException {
+
+        if (deadlineTask[0].equals("deadline")) {
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
+        }
+        if (deadlineTask.length < 2) {
+            throw new DukeException(ExceptionType.MISSING_ON_TIME);
+        }
+        String description = deadlineTask[0].substring(9).trim();
+        String by = deadlineTask[1].trim();
         Deadline deadline = new Deadline(description, by);
-        return addTask(deadline);
+        addTask(deadline);
+        return deadline;
     }
-    public static Task addToDo(String description) {
-        ToDo todo = new ToDo(description);
-        return addTask(todo);
+
+    public static Task addToDo(String toDoDescription) throws DukeException {
+        try {
+            ToDo todo = new ToDo(toDoDescription);
+            addTask(todo);
+            return todo;
+
+        } catch (StringIndexOutOfBoundsException e) {
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
+        }
     }
+
+    public static Task addEvent(String[] eventTask) throws DukeException {
+
+        if (eventTask[0].equals("event")) {
+            throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
+        }
+        if (eventTask.length < 2) {
+            throw new DukeException(ExceptionType.MISSING_ON_TIME);
+        }
+        String description = eventTask[0].substring(6).trim();
+        String at = eventTask[1].trim();
+        Event event = new Event(description, at);
+        addTask(event);
+        return event;
+    }
+
     public static void listTasks() {
         if (taskCount == 0) {
             System.out.println("\t" + "You currently have no tasks");
@@ -51,6 +83,7 @@ public class TaskManager {
             }
         }
     }
+
     public static Task deleteTask(int id) {
         Task task = taskList.get(id - 1);
         taskList.remove(id - 1);
@@ -60,6 +93,19 @@ public class TaskManager {
         }
         return task;
     }
+
+    public static Task taskDone(int taskNumber) throws DukeException {
+
+        if (taskNumber <= 0) {
+            throw new DukeException(ExceptionType.NOT_A_NUMBER);
+        } else if (taskNumber > taskCount) {
+            throw new DukeException(ExceptionType.INVALID_NUMBER);
+        } else {
+            Task task = TaskManager.markAsDone(taskNumber);
+            return task;
+        }
+    }
+
     public static Task markAsDone(int id) {
         Task task = taskList.get(id - 1);
         if (!task.isDone) {
@@ -84,7 +130,7 @@ public class TaskManager {
         return taskList.get(id);
     }
 
-    public void parseLines(BufferedReader br) throws IOException {
+    public void parseLines(BufferedReader br) throws IOException, DukeException {
 
         String fileLine;
         while ((fileLine = br.readLine()) != null) {
@@ -96,10 +142,10 @@ public class TaskManager {
                 task = addToDo(taskDetails[2]);
                 break;
             case "E":
-                task = addEvent(taskDetails[2], taskDetails[3]);
+                task = addEvent(Arrays.copyOfRange(taskDetails, 2, 4));
                 break;
             case "D":
-                task = addDeadline(taskDetails[2], taskDetails[3]);
+                task = addDeadline(Arrays.copyOfRange(taskDetails, 2, 4));
                 break;
             default:
                 return;
@@ -118,7 +164,6 @@ public class TaskManager {
         String taskType, isDone, desc, param;
         String delimiter = " | ";
         boolean hasParam;
-        //System.out.println("function called");
 
         for (int i = 0; i < taskCount; i++) {
             Task task = getTask(i);

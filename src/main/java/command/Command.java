@@ -40,4 +40,15 @@ public class Command {
     public String getMessage() {
         return message;
     }
+
+    public int extractTaskNumber() {
+        int itemNo;
+        try {
+            String itemNumber = message.trim().substring(5, message.length()).trim();
+            itemNo = Integer.parseInt(itemNumber);
+        } catch (NumberFormatException | StringIndexOutOfBoundsException e) {
+            itemNo = 0;
+        }
+        return itemNo;
+    }
 }
