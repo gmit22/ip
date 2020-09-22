@@ -5,8 +5,7 @@ import exception.ExceptionType;
 import file.FileManager;
 import tasks.Task;
 import tasks.TaskManager;
-
-import messages.Messages;
+import ui.Ui;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -23,29 +22,34 @@ public class Duke {
     public static final String TASK_BY = "/by";
 
     /*path for home directory*/
-    private static final String root = System.getProperty("user.dir");
-    private static final Path dirPath = Paths.get( "data");
-    private static final Path filePath = Paths.get( "data", "data.txt");
-    private static final boolean directoryExists = Files.exists(dirPath);
-    private static final int LEN_LINE_SEPARATOR = 60;
-    public static final String LINE_SEPARATOR = "\t" + "-".repeat(LEN_LINE_SEPARATOR);
+    private static final String ROOT = System.getProperty("user.dir");
 
-    public static void main(String[] args) {
-        Messages.printGreeting();
+    private static final Path FILE_PATH = Paths.get(ROOT, "src", "main", "data", "data.txt");
+    private static final Path DIR_PATH = Paths.get(ROOT, "src", "main", "data");
+    private static final boolean directoryExists = Files.exists(DIR_PATH);
+
+    private static final Ui ui = new Ui();
+    private static TaskManager taskList;
+
+    public Duke() {
+
         FileManager fileManager;
         if (!directoryExists) {
-            File file = new File(String.valueOf(dirPath));
+            File file = new File(String.valueOf(DIR_PATH));
             file.mkdir();
         }
-        fileManager = new FileManager(filePath.toString());
+        fileManager = new FileManager(FILE_PATH.toString());
 
         // Create TaskManager
-        TaskManager taskList;
         try {
             taskList = createTaskManager(fileManager);
-        } catch (IOException e) {
-            return;
+        } catch (DukeException e) {
+            ui.printError(e.getMessage());
         }
+    }
+
+    public static void main(String[] args) {
+        Ui.printGreeting();
 
         Scanner in = new Scanner(System.in);
         Command input = new Command(in.nextLine());
@@ -54,7 +58,7 @@ public class Duke {
         while (true) {
             try {
                 CommandExecute type = input.extractType();
-                System.out.println(LINE_SEPARATOR);
+                Ui.printLineSeparator();
                 switch (type) {
                 case MARK_DONE:
                     int taskNumber = extractTaskNumber(input.getMessage());
@@ -77,28 +81,28 @@ public class Duke {
                     addEvent(taskList, eventTask);
                     break;
                 case EXIT:
-                    Messages.exit(taskList);
+                    Ui.exit(taskList);
                     break;
                 case DELETE:
                     int id = Integer.parseInt(input.getMessage().substring(7));
-                    Messages.removeTask(taskList, id);
+                    Ui.removeTask(taskList, id);
                     break;
                 default:
-                    Messages.printCommandNotFound();
+                    Ui.printCommandNotFound();
                     break;
                 }
                 if (type == CommandExecute.EXIT) {
                     break;
                 }
             } catch (DukeException e) {
-                Messages.printError(e.toString());
+                Ui.printError(e.toString());
             }
             try {
                 taskList.writeToFile();
             } catch (IOException e) {
-                Messages.printFileError();
+                Ui.printFileError();
             }
-            System.out.println(LINE_SEPARATOR);
+            Ui.printLineSeparator();
             input = new Command(in.nextLine());
         }
     }
@@ -116,13 +120,11 @@ public class Duke {
         }
         String description = taskDetails[0].substring(6).trim();
         String by = taskDetails[1].trim();
-
         Task task = TaskManager.addEvent(description, by);
-        Messages.printTaskAddedMessage(task, taskList.getTaskCount());
+        Ui.printTaskAddedMessage(task, taskList.getTaskCount());
     }
 
     private static void addDeadline(TaskManager taskList, String deadlineTask) throws DukeException {
-
         String[] taskDetails = deadlineTask.trim().split(TASK_BY);
         if (!deadlineTask.contains(TASK_BY)) {
             throw new DukeException(ExceptionType.MISSING_IDENTIFIER);
@@ -136,7 +138,7 @@ public class Duke {
         String description = taskDetails[0].substring(9).trim();
         String by = taskDetails[1].trim();
         Task task = TaskManager.addDeadline(description, by);
-        Messages.printTaskAddedMessage(task, taskList.getTaskCount());
+        Ui.printTaskAddedMessage(task, taskList.getTaskCount());
     }
 
 
@@ -145,12 +147,12 @@ public class Duke {
             String taskDetails = toDoTask.substring(5).trim();
             Task task;
             task = TaskManager.addToDo(taskDetails);
-            Messages.printTaskAddedMessage(task, taskList.getTaskCount());
+            Ui.printTaskAddedMessage(task, taskList.getTaskCount());
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
     }
-    //comment
+
     private static void taskDone(TaskManager taskList, int taskNumber) throws DukeException {
 
         if (taskNumber <= 0) {
@@ -159,26 +161,18 @@ public class Duke {
             throw new DukeException(ExceptionType.INVALID_NUMBER);
         } else {
             Task task = TaskManager.markAsDone(taskNumber);
-            Messages.printTaskDone(task, taskList.getTaskCount());
+            Ui.printTaskDone(task, taskList.getTaskCount());
         }
     }
-    private static TaskManager createTaskManager(FileManager fileManager) throws IOException {
 
+    private static TaskManager createTaskManager(FileManager fileManager) throws DukeException, IOException {
         // Will loop as long as FileNotFoundException is caught, and file is not created
         while (true) {
             try {
                 return new TaskManager(fileManager);
             } catch (FileNotFoundException e) {
                 // Create file if not found
-                try {
-                    fileManager.createFile();
-                } catch (IOException err) {
-                    throw err;
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            } catch (IOException e) {
-                System.out.println("Error in instantiating task manager.");
+                fileManager.createFile();
             }
         }
     }

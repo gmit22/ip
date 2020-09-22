@@ -1,5 +1,6 @@
 package file;
 
+import exception.DukeException;
 import tasks.TaskManager;
 
 import java.io.*;
@@ -26,7 +27,7 @@ public class FileManager {
     public String getFilePath() {
         return filePath;
     }
-    public void createFile() throws Exception {
+    public void createFile() throws DukeException, IOException {
         File file = new File(filePath);
 
         try {
@@ -39,7 +40,7 @@ public class FileManager {
             throw e;
         }
     }
-    public void parseFile(TaskManager taskList) throws FileNotFoundException {
+    public void parseFile(TaskManager taskList) throws DukeException, FileNotFoundException {
 
         FileInputStream fstream;
         fstream = new FileInputStream(filePath);

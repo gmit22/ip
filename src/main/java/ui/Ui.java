@@ -1,9 +1,9 @@
-package messages;
+package ui;
 
 import tasks.Task;
 import tasks.TaskManager;
 
-public class Messages {
+public class Ui {
     public static final String EXIT_MESSAGE = "Bye! Dobby is now free!";
     private static final int LEN_LINE_SEPARATOR = 60;
     public static final String LINE_SEPARATOR = "\t" + "-".repeat(LEN_LINE_SEPARATOR);
@@ -48,5 +48,9 @@ public class Messages {
 
     public static void printCommandNotFound() {
         System.out.println("It seems like you entered an unidentified command :(");
+    }
+
+    public static void printLineSeparator(){
+        System.out.println(LINE_SEPARATOR);
     }
 }

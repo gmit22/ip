@@ -1,5 +1,6 @@
 package tasks;
 
+import exception.DukeException;
 import file.FileManager;
 
 import java.io.BufferedReader;
@@ -15,7 +16,7 @@ public class TaskManager {
     private static int taskLeft = 0;
     private final FileManager fileManager;
 
-    public TaskManager(FileManager fileManager) throws IOException {
+    public TaskManager(FileManager fileManager) throws DukeException {
         this.fileManager = fileManager;
         fileManager.parseFile(this);
     }
