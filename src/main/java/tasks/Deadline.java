@@ -13,8 +13,7 @@ public class Deadline extends Task {
         setDateTime(by);
     }
     /**
-     * String representation of Deadline task.
-     * @return String representation.
+     * @return String representation of deadlineTask.
      */
     @Override
     public String toString() {
