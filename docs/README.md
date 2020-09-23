@@ -46,7 +46,7 @@ Adds a `task` which has to be completed by the mentioned deadline.
 Adds a `task` with an attached timing/venue.
 * Format: `event <description> /by <datetime>`
 * Constraints:
-  * The description cannot be empty
+  * The description cannot be empty.
   * Follow the ISO (`YYYY-MM-DD HH:MM`) for `<datetime>`
 * Usage command: 
   * `event attend class /at 2021-08-10 12:00`
@@ -61,7 +61,7 @@ Adds a `task` with an attached timing/venue.
     ```
   
 ### Adding a `ToDo` Task - `todo`
-Adds a `task` with to-do description for task to be done.
+Adds a `task` with to-do description.
 * Format: `todo <description>`
 * Constraints:
   * The description cannot be empty
@@ -80,7 +80,6 @@ Adds a `task` with to-do description for task to be done.
 List all the tasks currently stored in Task Manager
 * Usage: `list` 
 * Expected outcome:
-
     ```
     ------------------------------------------------------------
     Here are the tasks in your list:
