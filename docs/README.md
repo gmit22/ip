@@ -160,12 +160,12 @@ Exits the application and prints a exit message, indicating the number of tasks 
 
 Action | Format, Examples
 --------|------------------
-**Add todo task** | `todo <description>` <br> e.g., `todo buy groceries`
-**Add deadline task** | `deadline <description> /by <duedate>` <br> e.g., `deadline assignment /by 2020-08-16 23:59`
-**Add event task** | `event <description> /at <duedate>` <br> e.g., `event lunch /at 2021-05-22 12:00`
+**Add todo task** | `todo <description>` <br> Example: `todo buy groceries`
+**Add deadline task** | `deadline <description> /by <duedate>` <br> Example: `deadline assignment /by 2020-08-16 23:59`
+**Add event task** | `event <description> /at <duedate>` <br> Example: `event lunch /at 2021-05-22 12:00`
 **List tasks** | `list`
-**Mark as done** | `done <taskNumber>`<br> e.g., `done 2`
-**Delete task** | `delete <taskNumber>`<br> e.g., `delete 6`
-**Find with keyword** | `find <keyword>`<br> e.g., `find class`
+**Mark as done** | `done <taskNumber>`<br> Example: `done 2`
+**Delete task** | `delete <taskNumber>`<br> Example: `delete 6`
+**Find with keyword** | `find <keyword>`<br> Example: `find class`
 **Exit application** | `bye`
       
