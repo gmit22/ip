@@ -34,14 +34,10 @@ public class FileManager {
     public void createFile() throws  IOException {
         File file = new File(filePath);
 
-        try {
-            if (file.createNewFile()) {
-                System.out.println("\tFile created at location: " + file.getCanonicalPath());
-            } else {
-                System.out.println("\tFile already exists at location: " + file.getCanonicalPath());
-            }
-        } catch (IOException e) {
-            throw e;
+        if (file.createNewFile()) {
+            System.out.println("\tFile created at location: " + file.getCanonicalPath());
+        } else {
+            System.out.println("\tFile already exists at location: " + file.getCanonicalPath());
         }
     }
     /**

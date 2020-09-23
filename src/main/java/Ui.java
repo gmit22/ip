@@ -15,7 +15,7 @@ public class Ui {
      *Outputs confirmation message for a task marked to be done.
      *Displays the task in consideration for this.
      * @param task, task object that is marked done in the taskList.
-    */
+     */
     public static void printTaskDone(Task task) {
         System.out.println("\t" + "Got it. I've marked this task as done: ");
         System.out.println("\t\t" + task.toString());
