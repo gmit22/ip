@@ -1,17 +1,34 @@
 package tasks;
 
 public class Deadline extends Task {
-    String date;
-
-    public Deadline(String description, String date) {
+    String by;
+    /**
+     * Constructor
+     * @param description Description of the task.
+     * @param by Deadline for the task.
+     */
+    public Deadline(String description, String by) {
         super(description);
-        this.date = date;
+        this.by = by;
+        setDateTime(by);
     }
-    public String getBy(){
-        return date;
-    }
+    /**
+     * @return String representation of deadlineTask.
+     */
     @Override
     public String toString() {
-        return "[D]" + super.toString() + " (by: " + date + ")";
+        String dateFormatted = "";
+        if (hasDate && hasTime){
+            dateFormatted = getFormattedDate() + " " + getFormattedTime();
+        }else{
+            dateFormatted = by;
+        }
+        return "[D]" + super.toString() + " (by: " + dateFormatted + ")";
+    }
+    /**
+     * @return String parameter details of the object.
+     */
+    public String getBy(){
+        return by;
     }
 }

@@ -1,2 +1,1 @@
-T | 0 | work hard
-T | 1 | hello
+T | 0 | 
