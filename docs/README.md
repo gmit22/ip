@@ -91,7 +91,7 @@ List all the tasks currently stored in Task Manager
     ```
   
 ### Mark `task` as done: `done`
-Marks a specified `Task` as done. `list` can be used to find index of relevant `task`. 
+Marks a specified `Task` as done. `list` can be used to find index of the relevant `task`. 
 * Format: done <taskNumber>
 * Constraints
   * taskNumber must be within the limits of tasks stored in the task manager.
@@ -107,7 +107,7 @@ Marks a specified `Task` as done. `list` can be used to find index of relevant `
     ```
 
 ### Delete `task` : `delete`
-Remove a specified `Task` from the task manager. `list` can be used to find index of relevant `task`.
+Remove a specified `Task` from the task manager. `list` can be used to find index of the relevant `task`.
 * Format: delete <taskNumber>
 * Constraints
   * taskNumber must be within the limits of tasks stored in the task manager.
@@ -151,8 +151,20 @@ Exits the application and prints a exit message, indicating the number of tasks 
     Happy to help you organize work. Anywhere, anytime!
     ------------------------------------------------------------  
     ```
-    
+## FAQ
 
+**Q**: How do I transfer my data to another computer?<br>
+**A**: Install the application in the other computer and overwrite the empty data file it creates with the file that contains the data of your previous Dobby -Task Manager. The filename is "data.txt" and can be located under data directory.
+
+## Command Summary
+
+Action | Format, Examples
+--------|------------------
+**ToDo** | `todo <description>` <br> e.g., `todo buy groceries`
+**Deadline** | `deadline <description> /by <duedate>` <br> e.g., `deadline assignment /by 2020-08-16 23:59`
+**Event** | `event <description> /at <duedate>` <br> e.g., `event lunch /at 2021-05-22 12:00`
+**List** | `list`
+**Done** | `done <taskNumber>`<br> e.g., `done 2`
+**Delete** | `delete <taskNumber>`<br> e.g., `delete 6`
+**Find** | `find <keyword>`<br> e.g., `find class`
       
-    
-
