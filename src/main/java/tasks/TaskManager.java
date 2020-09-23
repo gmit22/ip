@@ -10,104 +10,135 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Arrays;
 
-
 public class TaskManager {
-
 
     private static final int MAX_TASKS = 100;
     private static final ArrayList<Task> taskList = new ArrayList<>(MAX_TASKS);
     private static int taskCount = 0;
     private static int taskLeft = 0;
     private final FileManager fileManager;
-
+    /**
+     * Constructor.
+     * @param fileManager FileManager object having location of file.
+     * @throws DukeException Exception raised while parsing file, to add tasks to the TaskManager.
+     * @throws FileNotFoundException If file not found while converting into stream.
+     */
     public TaskManager(FileManager fileManager) throws DukeException, FileNotFoundException {
         this.fileManager = fileManager;
         fileManager.parseFile(this);
     }
-
+    /**
+     * Updates taskLeft, taskCount.
+     * @param task Add task to taskList variable of the class.
+     */
     private static void addTask(Task task) {
         taskList.add(task);
         taskCount++;
         taskLeft++;
     }
-
+    /**
+     * @param deadlineTask Details to instantiate deadlineTask.
+     * @return Task object added to the taskList.
+     * @throws DukeException If invalid input format by the user.
+     */
     public static Task addDeadline(String[] deadlineTask) throws DukeException {
-
         if (deadlineTask[0].equals("deadline")) {
             throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
         if (deadlineTask.length < 2) {
             throw new DukeException(ExceptionType.MISSING_ON_TIME);
         }
-        String description = deadlineTask[0].substring(9).trim();
+        String description = deadlineTask[0].trim();
         String by = deadlineTask[1].trim();
         Deadline deadline = new Deadline(description, by);
         addTask(deadline);
         return deadline;
     }
-
+    /**
+     * @param toDoDescription Details to instantiate toDoTask.
+     * @return Task object added to the taskList.
+     * @throws DukeException If invalid input format by the user.
+     */
     public static Task addToDo(String toDoDescription) throws DukeException {
         try {
             ToDo todo = new ToDo(toDoDescription);
             addTask(todo);
             return todo;
-
         } catch (StringIndexOutOfBoundsException e) {
             throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
     }
-
+    /**
+     * @param eventTask Details to instnatiate eventTask.
+     * @return Task object added to the taskList
+     * @throws DukeException If invalid input format by the user.
+     */
     public static Task addEvent(String[] eventTask) throws DukeException {
-
         if (eventTask[0].equals("event")) {
             throw new DukeException(ExceptionType.MISSING_TASK_DESCRIPTION);
         }
         if (eventTask.length < 2) {
             throw new DukeException(ExceptionType.MISSING_ON_TIME);
         }
-        String description = eventTask[0].substring(6).trim();
+        String description = eventTask[0].trim();
         String at = eventTask[1].trim();
         Event event = new Event(description, at);
         addTask(event);
         return event;
     }
+    /**
+     * @param keyword Keyword to match the taskDescription of objects in taskList.
+     * @return ArrayList of tasks matching the keyword.
+     */
+    public static ArrayList<Task> findTask(String keyword){
+        ArrayList<Task> foundTasks = new ArrayList<>(MAX_TASKS);
 
-    public static void listTasks() {
-        if (taskCount == 0) {
-            System.out.println("\t" + "You currently have no tasks");
-            System.out.println("\t" + "To update your to-do list, just type the task");
-        } else {
-            System.out.println("\t" + "Here are the tasks in your list:");
-            for (int j = 0; j < taskCount; j++) {
-                System.out.println("\t" + (j + 1) + ". " + taskList.get(j).toString());
+        for (Task task: taskList){
+            if (task.description.contains(keyword)){
+                foundTasks.add(task);
             }
         }
+        return foundTasks;
     }
-
+    /**
+     * @param id Id of the task to be deleted.
+     * @return Task object deleted from the taskList.
+     */
     public static Task deleteTask(int id) {
-        Task task = taskList.get(id - 1);
-        taskList.remove(id - 1);
-        taskCount--;
-        if (!task.isDone) {
-            taskLeft--;
+        Task task= null;
+
+        if (id <= taskCount) {
+            task = taskList.get(id - 1);
+            taskList.remove(id - 1);
+            taskCount--;
+            if (!task.isDone) {
+                taskLeft--;
+            }
         }
         return task;
     }
-
+    /**
+     * @param taskNumber TaskNumber to be deleted from the list.
+     * @return Task marked as done.
+     * @throws DukeException If invalid taskNumber input by the user.
+     */
     public static Task taskDone(int taskNumber) throws DukeException {
-
         if (taskNumber <= 0) {
             throw new DukeException(ExceptionType.NOT_A_NUMBER);
         } else if (taskNumber > taskCount) {
             throw new DukeException(ExceptionType.INVALID_NUMBER);
         } else {
-            Task task = TaskManager.markAsDone(taskNumber);
-            return task;
+            return TaskManager.markAsDone(taskNumber);
         }
     }
-
+    /**
+     * Mark relevant task as done.
+     * @param id of task to be marked as done.
+     * @return Task object of taskId.
+     */
     public static Task markAsDone(int id) {
         Task task = taskList.get(id - 1);
+
         if (!task.isDone) {
             taskLeft--;
         }
@@ -115,28 +146,36 @@ public class TaskManager {
         return task;
     }
     /**
-     * @return number of tasks
+     * @return Number of tasks.
      */
     public int getTaskCount() {
         return taskCount;
     }
     /**
-     * @return taskLeft to be done
+     * @return taskLeft to be done.
      */
     public int getTaskLeft() {
         return taskLeft;
     }
-    private Task getTask(int id) {
+    /**
+     * @param id Id of task to be accessed in the taskList.
+     * @return Task object of relevant id.
+     */
+    public Task getTask(int id) {
         return taskList.get(id);
     }
-
+    /**
+     * @param br Input to parse the file.
+     * @throws IOException If error in processing br input.
+     * @throws DukeException If missing details of task.
+     */
     public void parseLines(BufferedReader br) throws IOException, DukeException {
-
         String fileLine;
+
         while ((fileLine = br.readLine()) != null) {
             String[] taskDetails = fileLine.trim().split("\\s*[|]\\s*");
-
             Task task;
+
             switch (taskDetails[0]) {
             case "T":
                 task = addToDo(taskDetails[2]);
@@ -150,15 +189,16 @@ public class TaskManager {
             default:
                 return;
             }
-
             if (taskDetails[1].equals("1")) {
                 taskLeft--;
                 task.markAsDone();
             }
         }
     }
-
-
+    /**
+     * Updates the .txt file with objects changed/added to taskList.
+     * @throws IOException
+     */
     public void writeToFile() throws IOException {
         StringBuilder lines = new StringBuilder();
         String taskType, isDone, desc, param;
@@ -167,7 +207,7 @@ public class TaskManager {
 
         for (int i = 0; i < taskCount; i++) {
             Task task = getTask(i);
-            //System.out.println("function called");
+
             if (task instanceof ToDo) {
                 taskType = "T";
                 desc = task.getDescription();
@@ -195,6 +235,5 @@ public class TaskManager {
             lines.append("\n");
         }
         fileManager.saveToFile(lines.toString());
-
     }
 }

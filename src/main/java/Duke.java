@@ -11,11 +11,10 @@ import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-
     public static final String TASK_AT = "/at";
     public static final String TASK_BY = "/by";
 
@@ -34,12 +33,10 @@ public class Duke {
         FileManager fileManager;
         File file = new File(String.valueOf(DIR_PATH));
 
-        if (DIRECTORY_EXISTS) {
-            fileManager = new FileManager(FILE_PATH.toString());
-        } else {
+        if (!DIRECTORY_EXISTS) {
             file.mkdirs();
-            fileManager = new FileManager(FILE_PATH.toString());
         }
+        fileManager = new FileManager(FILE_PATH.toString());
         // Create TaskManager
         try {
             taskList = createTaskManager(fileManager);
@@ -50,9 +47,11 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
-
+    /**
+     * Creates a data.txt file if not existing.
+     * Creates a TaskManager object to update and retrieve data from the .txt file.
+     **/
     private static TaskManager createTaskManager(FileManager fileManager) throws IOException {
-
         // Will loop as long as FileNotFoundException is caught, and file is not created
         while (true) {
             try {
@@ -69,6 +68,11 @@ public class Duke {
             }
         }
     }
+    /**
+     * Runs the task scheduler.
+     * Manages the messages shown to the user as the output.
+     * Handles commands, UI and storing of tasks to a .txt file.
+     */
     public void run() {
         ui.printGreeting();
         Task task;
@@ -89,7 +93,7 @@ public class Duke {
                     break;
                 case LIST:
                     //print list of items
-                    TaskManager.listTasks();
+                    ui.listTasks(taskList);
                     break;
                 case TODO:
                     String toDoTask = input.getMessage().substring(5).trim();
@@ -97,13 +101,13 @@ public class Duke {
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
                     break;
                 case DEADLINE:
-                    String deadlineTask = input.getMessage();
+                    String deadlineTask = input.getMessage().substring(9).trim();
                     taskDetails = deadlineTask.trim().split(TASK_BY);
                     task = TaskManager.addDeadline(taskDetails);
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
                     break;
                 case EVENT:
-                    String eventTask = input.getMessage();
+                    String eventTask = input.getMessage().substring(6);
                     taskDetails = eventTask.trim().split(TASK_AT);
                     task = TaskManager.addEvent(taskDetails);
                     ui.printTaskAddedMessage(task, taskList.getTaskCount());
@@ -113,7 +117,13 @@ public class Duke {
                     break;
                 case DELETE:
                     int id = Integer.parseInt(input.getMessage().substring(7));
-                    ui.removeTask(taskList, id);
+                    task = TaskManager.deleteTask(id);
+                    ui.removeTask(task, taskList.getTaskCount());
+                    break;
+                case FIND:
+                    String keyWord = input.getMessage().substring(5).trim();
+                    ArrayList<Task> foundTasks = TaskManager.findTask(keyWord);
+                    ui.printFoundTasks(foundTasks);
                     break;
                 default:
                     ui.printCommandNotFound();
