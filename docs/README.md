@@ -80,7 +80,7 @@ Adds a `task` with to-do description.
 List all the tasks currently stored in Task Manager
 * Usage: `list` 
 * Expected outcome:
-    ```
+    ````
     ------------------------------------------------------------
     Here are the tasks in your list:
     1. [D][X] finish assignment (by: Aug 10 2021 11:59:00)
@@ -88,7 +88,7 @@ List all the tasks currently stored in Task Manager
     3. [T][X] get groceries
     4. [T][X] do class work
     ------------------------------------------------------------
-    ```
+    ````
   
 ### Mark `task` as done: `done`
 Marks a specified `Task` as done. `list` can be used to find index of the relevant `task`. 
@@ -160,11 +160,12 @@ Exits the application and prints a exit message, indicating the number of tasks 
 
 Action | Format, Examples
 --------|------------------
-**ToDo** | `todo <description>` <br> e.g., `todo buy groceries`
-**Deadline** | `deadline <description> /by <duedate>` <br> e.g., `deadline assignment /by 2020-08-16 23:59`
-**Event** | `event <description> /at <duedate>` <br> e.g., `event lunch /at 2021-05-22 12:00`
-**List** | `list`
-**Done** | `done <taskNumber>`<br> e.g., `done 2`
-**Delete** | `delete <taskNumber>`<br> e.g., `delete 6`
-**Find** | `find <keyword>`<br> e.g., `find class`
+**Add todo task** | `todo <description>` <br> e.g., `todo buy groceries`
+**Add deadline task** | `deadline <description> /by <duedate>` <br> e.g., `deadline assignment /by 2020-08-16 23:59`
+**Add event task** | `event <description> /at <duedate>` <br> e.g., `event lunch /at 2021-05-22 12:00`
+**List tasks** | `list`
+**Mark as done** | `done <taskNumber>`<br> e.g., `done 2`
+**Delete task** | `delete <taskNumber>`<br> e.g., `delete 6`
+**Find with keyword** | `find <keyword>`<br> e.g., `find class`
+**Exit application** | `bye`
       
