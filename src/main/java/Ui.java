@@ -6,7 +6,7 @@ import java.util.ArrayList;
 public class Ui {
     /**
      * Constants used to display output to the user.
-     * Changeing the LEN_LINE_SEPARATOR can change the length of the line separator shown.
+     * Changing the LEN_LINE_SEPARATOR can change the length of the line separator shown.
      */
     public static final String EXIT_MESSAGE = "Bye! Dobby is now free!";
     private static final int LEN_LINE_SEPARATOR = 60;

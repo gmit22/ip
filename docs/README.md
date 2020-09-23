@@ -1,20 +1,94 @@
 # User Guide
+Refer to [Setting Up](https://github.com/gmit22/ip/blob/master/README.md) guide for instructions to set up the project in IntelliJ.
 
 ## Features 
+### Add `Task`
+You can add 3 types of `task`s to the task manager: `Deadline`, `Event` and `Todo`.
 
-### Feature 1 
-Description of feature.
+### Delete `Task`
+Removes a `task` from the task manager.
+
+### Find `Task`
+Find `task`s containing specified keyword in its description.
+
+###List `Task`
+List all the `task`s contained in the task manager.
+
+###Mark `task` done
+Mark the specified `task` in task manager as done.
+
+###Exit
+Exit the program.
+
+###Store `task` 
+Stores the `task`s updated in task manager in a `.txt` file.
 
 ## Usage
 
-### `Keyword` - Describe action
-
-Describe action and its outcome.
-
-Example of usage: 
+### Adding a `Deadline` Task - `deadline`
+Adds a `task` which has to be completed by the mentioned deadline.
+* Format: `deadline <description> /by <duedate>`
+* Constraints:
+  * The description cannot be empty
+  * Follow the ISO (`YYYY-MM-DD HH:MM`) for `<duedate>`
+* Usage command: 
+  * `deadline finish assignment /by 2021-08-10 11:59`
+* Expected outcome:
+    ```
+    ------------------------------------------------------------
+        Got it. I've added this to your custom-list: 
+            [D][✘] finish assignment (by: Aug 10 2021 11:59:00)
+        Now you have 1 tasks in your list :)
+    ------------------------------------------------------------
+    ```
+  
+### Adding an `Event` Task - `event`
+Adds a `task` with an attached timing/venue.
+* Format: `event <description> /by <datetime>`
+* Constraints:
+  * The description cannot be empty
+  * Follow the ISO (`YYYY-MM-DD HH:MM`) for `<datetime>`
+* Usage command: 
+  * `event attend class /at 2021-08-10 12:00`
+  * `event attend meeting /at University Town`
+* Expected outcome:
+    ```
+    ------------------------------------------------------------
+        Got it. I've added this to your custom-list: 
+            [E][X] attend class (at: Aug 10 2021 12:00:00)
+        Now you have 1 tasks in your list :)
+    ------------------------------------------------------------
+    ```
+  
+### Adding a `ToDo` Task - `todo`
+Adds a `task` with to-do description for task to be done.
+* Format: `todo <description>`
+* Constraints:
+  * The description cannot be empty
+* Usage command: 
+  * `todo get groceries`
+* Expected outcome:
+    ```
+   	------------------------------------------------------------
+   	    Got it. I've added this to your custom-list: 
+   		    [T][X] get groceries
+   	    Now you have 1 tasks in your list :)
+   	------------------------------------------------------------
+    ```
+  
+###List `task`: `list`
+* List all the tasks currently stored in Task Manager
+* Usage: `list` 
+* Expected outcome:
+    ```
+    ------------------------------------------------------------
+    Here are the tasks in your list:
+    1. [D][X] finish assignment (by: Aug 10 2021 11:59:00)
+    2. [E][X] attend class (at: Aug 10 2021 12:00:00)
+    3. [T][X] get groceries
+    ------------------------------------------------------------
+    ```
 
 `keyword (optional arguments)`
-
-Expected outcome:
-
+An expected outcome:
 `outcome`
