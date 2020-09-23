@@ -16,7 +16,7 @@ public class Ui {
      *Displays the task in consideration for this.
      * @param task, task object that is marked done in the taskList.
      */
-    public static void printTaskDone(Task task) {
+    public void printTaskDone(Task task) {
         System.out.println("\t" + "Got it. I've marked this task as done: ");
         System.out.println("\t\t" + task.toString());
     }
@@ -24,7 +24,7 @@ public class Ui {
      * @param taskList ArrayList object of taskManager containing tasks added (/data.txt).
      * Prints the list of all tasks stored.
      */
-    public static void listTasks(TaskManager taskList) {
+    public void listTasks(TaskManager taskList) {
         if (taskList.getTaskCount() == 0) {
             System.out.println("\t" + "You currently have no tasks");
             System.out.println("\t" + "To update your to-do list, just type the task");
@@ -108,11 +108,11 @@ public class Ui {
      */
     public void printFoundTasks(ArrayList<Task> foundTasks) {
         if (foundTasks.size() == 0) {
-            System.out.println("No matching tasks found, please check your keyword.");
+            System.out.println("\tNo matching tasks found, please check your keyword.");
         } else {
-            System.out.println("Here are matching tasks in your list:");
+            System.out.println("\tHere are matching tasks in your list:");
             for (int i = 0; i < foundTasks.size(); i++) {
-                System.out.println("\t" + (i + 1) + ". " + foundTasks.get(i).toString());
+                System.out.println("\t\t" + (i + 1) + ". " + foundTasks.get(i).toString());
             }
         }
     }

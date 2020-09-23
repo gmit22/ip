@@ -11,16 +11,16 @@ Removes a `task` from the task manager.
 ### Find `Task`
 Find `task`s containing specified keyword in its description.
 
-###List `Task`
+### List `Task`
 List all the `task`s contained in the task manager.
 
-###Mark `task` done
+### Mark `task` done
 Mark the specified `task` in task manager as done.
 
-###Exit
+### Exit
 Exit the program.
 
-###Store `task` 
+### Store `task` 
 Stores the `task`s updated in task manager in a `.txt` file.
 
 ## Usage
@@ -56,7 +56,7 @@ Adds a `task` with an attached timing/venue.
     ------------------------------------------------------------
         Got it. I've added this to your custom-list: 
             [E][X] attend class (at: Aug 10 2021 12:00:00)
-        Now you have 1 tasks in your list :)
+        Now you have 2 tasks in your list :)
     ------------------------------------------------------------
     ```
   
@@ -72,12 +72,12 @@ Adds a `task` with to-do description for task to be done.
    	------------------------------------------------------------
    	    Got it. I've added this to your custom-list: 
    		    [T][X] get groceries
-   	    Now you have 1 tasks in your list :)
+   	    Now you have 3 tasks in your list :)
    	------------------------------------------------------------
     ```
   
-###List `task`: `list`
-* List all the tasks currently stored in Task Manager
+### List `task`: `list`
+List all the tasks currently stored in Task Manager
 * Usage: `list` 
 * Expected outcome:
     ```
@@ -88,7 +88,59 @@ Adds a `task` with to-do description for task to be done.
     3. [T][X] get groceries
     ------------------------------------------------------------
     ```
+### Mark `task` as done: `done`
+Marks a specified `Task` as done. `list` can be used to find index of relevant `task`. 
+* Format: done <taskNumber>
+* Constraints
+  * taskNumber must be within the limits of tasks stored in the task manager.
+  * taskNumber should be positive.
+* Usage command: 
+  * `done 2` 
+* Expected outcome:
+    ```
+    ------------------------------------------------------------
+    Got it. I've marked this task as done: 
+        [E][✓] attend class (at: Aug 10 2021 12:00:00)
+    ------------------------------------------------------------
+    ```
 
-`keyword (optional arguments)`
-An expected outcome:
-`outcome`
+### Delete `task` : `delete`
+Remove a specified `Task` from the task manager. `list` can be used to find index of relevant `task`.
+* Format: delete <taskNumber>
+* Constraints
+  * taskNumber must be within the limits of tasks stored in the task manager.
+  * taskNumber should be positive.
+* Usage command: 
+  * `delete 3` 
+* Expected outcome:
+    ```
+	------------------------------------------------------------
+	Noted. I've removed this task:
+		[T][✘] get groceries
+	Now you have 2 tasks in your list :)
+	------------------------------------------------------------
+    ```
+### Find `task` : `find`
+Find all `task`s in task manager containing specified keyword in its description.
+* Format: find <keyword>
+* Constraints:
+  * If no matching task found, returns a no matching statement.
+* Usage command:
+  * find class
+  * find dinner
+* Expected outcome:
+
+    ```
+  	------------------------------------------------------------
+  	Here are matching tasks in your list:
+  		1. [E][✓] attend class (at: Aug 10 2021 12:00:00)
+  	------------------------------------------------------------
+    ```
+    ```
+    ------------------------------------------------------------
+    No matching tasks found, please check your keyword.
+    ------------------------------------------------------------
+  ```
+      
+    
+

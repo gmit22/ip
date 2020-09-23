@@ -1,4 +1,2 @@
 D | 0 | finish assignment | 2021-08-10 11:59
-E | 0 | attend class | 2021-08-10 12:00
-E | 0 | attend class | 2021-08-10 12:00
-T | 0 | get groceries
+E | 1 | attend class | 2021-08-10 12:00
