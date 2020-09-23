@@ -120,6 +120,7 @@ Remove a specified `Task` from the task manager. `list` can be used to find inde
 	Now you have 2 tasks in your list :)
 	------------------------------------------------------------
     ```
+  
 ### Find `task` : `find`
 Find all `task`s in task manager containing specified keyword in its description.
 * Format: find <keyword>
@@ -127,7 +128,6 @@ Find all `task`s in task manager containing specified keyword in its description
   * If no matching task found, returns a no matching statement.
 * Usage command:
   * find class
-  * find dinner
 * Expected outcome:
 
     ```
@@ -136,11 +136,7 @@ Find all `task`s in task manager containing specified keyword in its description
   		1. [E][✓] attend class (at: Aug 10 2021 12:00:00)
   	------------------------------------------------------------
     ```
-    ```
-    ------------------------------------------------------------
-    No matching tasks found, please check your keyword.
-    ------------------------------------------------------------
-  ```
+
       
     
 
