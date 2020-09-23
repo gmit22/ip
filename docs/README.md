@@ -18,7 +18,7 @@ List all the `task`s contained in the task manager.
 Mark the specified `task` in task manager as done.
 
 ### Exit
-Exit the program.
+Exit the application.
 
 ### Store `task` 
 Stores the `task`s updated in task manager in a `.txt` file.
@@ -86,8 +86,10 @@ List all the tasks currently stored in Task Manager
     1. [D][X] finish assignment (by: Aug 10 2021 11:59:00)
     2. [E][X] attend class (at: Aug 10 2021 12:00:00)
     3. [T][X] get groceries
+    4. [T][X] do class work
     ------------------------------------------------------------
     ```
+  
 ### Mark `task` as done: `done`
 Marks a specified `Task` as done. `list` can be used to find index of relevant `task`. 
 * Format: done <taskNumber>
@@ -116,8 +118,8 @@ Remove a specified `Task` from the task manager. `list` can be used to find inde
     ```
 	------------------------------------------------------------
 	Noted. I've removed this task:
-		[T][✘] get groceries
-	Now you have 2 tasks in your list :)
+		[T][✓] get groceries
+	Now you have 1 tasks in your list :)
 	------------------------------------------------------------
     ```
   
@@ -127,15 +129,29 @@ Find all `task`s in task manager containing specified keyword in its description
 * Constraints:
   * If no matching task found, returns a no matching statement.
 * Usage command:
-  * find class
+  * `find class`
 * Expected outcome:
-
     ```
   	------------------------------------------------------------
   	Here are matching tasks in your list:
   		1. [E][✓] attend class (at: Aug 10 2021 12:00:00)
+        2. [T][X] do class work
   	------------------------------------------------------------
     ```
+  
+### Exit Application: `bye`
+Exits the application and prints a exit message, indicating the number of tasks not marked as done in task manager.
+* Usage command:
+  * `bye`
+* Expected outcome:
+    ```
+    ------------------------------------------------------------
+    Bye! Dobby is now free!
+    You currently have 1 tasks left
+    Happy to help you organize work. Anywhere, anytime!
+    ------------------------------------------------------------  
+    ```
+    
 
       
     
