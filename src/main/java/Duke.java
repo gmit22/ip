@@ -15,8 +15,6 @@ import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
-
-
     public static final String TASK_AT = "/at";
     public static final String TASK_BY = "/by";
 
@@ -49,7 +47,6 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
-
     /**
      * Creates a data.txt file if not existing.
      * Creates a TaskManager object to update and retrieve data from the .txt file.
