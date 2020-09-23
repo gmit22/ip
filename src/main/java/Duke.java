@@ -35,12 +35,10 @@ public class Duke {
         FileManager fileManager;
         File file = new File(String.valueOf(DIR_PATH));
 
-        if (DIRECTORY_EXISTS) {
-            fileManager = new FileManager(FILE_PATH.toString());
-        } else {
+        if (!DIRECTORY_EXISTS) {
             file.mkdirs();
-            fileManager = new FileManager(FILE_PATH.toString());
         }
+        fileManager = new FileManager(FILE_PATH.toString());
         // Create TaskManager
         try {
             taskList = createTaskManager(fileManager);
@@ -52,8 +50,11 @@ public class Duke {
         new Duke().run();
     }
 
+    /**
+     * Creates a data.txt file if not existing.
+     * Creates a TaskManager object to update and retrieve data from the .txt file.
+     **/
     private static TaskManager createTaskManager(FileManager fileManager) throws IOException {
-
         // Will loop as long as FileNotFoundException is caught, and file is not created
         while (true) {
             try {
@@ -70,6 +71,11 @@ public class Duke {
             }
         }
     }
+    /**
+     * Runs the task scheduler.
+     * Manages the messages shown to the user as the output.
+     * Handles commands, UI and storing of tasks to a .txt file.
+     */
     public void run() {
         ui.printGreeting();
         Task task;
@@ -120,7 +126,7 @@ public class Duke {
                 case FIND:
                     String keyWord = input.getMessage().substring(5).trim();
                     ArrayList<Task> foundTasks = TaskManager.findTask(keyWord);
-                    ui.printFoundTasks(foundTasks, taskList);
+                    ui.printFoundTasks(foundTasks);
                     break;
                 default:
                     ui.printCommandNotFound();

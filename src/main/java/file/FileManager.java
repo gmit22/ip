@@ -3,31 +3,35 @@ package file;
 import exception.DukeException;
 import tasks.TaskManager;
 
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.FileNotFoundException;
+import java.io.FileWriter;
 
 public class FileManager {
 
     private final String filePath;
-
+    /**
+     * FileManager constructor, used to write and read to designated file.
+     * @param filePath String path of the file.
+     */
     public FileManager(String filePath) {
         this.filePath = filePath;
     }
-//    public static void createDirectory(String dirPath) throws IOException {
-//        File file = new File(dirPath);
-//        try {
-//            if (file.mkdir()) {
-//                System.out.println("Directory created at location: " + file.getCanonicalPath());
-//            } else {
-//                System.out.println("Directory already exists at location: " + file.getCanonicalPath());
-//            }
-//        } catch (IOException e) {
-//            throw e;
-//        }
-//    }
+    /**
+     * @return String FilePath of the .txt file.
+     */
     public String getFilePath() {
         return filePath;
     }
-    public void createFile() throws DukeException, IOException {
+    /**
+     * Creates a file at filepath if not already existing.
+     * @throws IOException If parent directory not present/ invalid path.
+     */
+    public void createFile() throws  IOException {
         File file = new File(filePath);
 
         try {
@@ -40,6 +44,12 @@ public class FileManager {
             throw e;
         }
     }
+    /**
+     * Reads the .txt file, sends data to parse it.
+     * @param taskList TaskList to which tasks are added, and stored.
+     * @throws DukeException
+     * @throws FileNotFoundException
+     */
     public void parseFile(TaskManager taskList) throws DukeException, FileNotFoundException {
 
         FileInputStream fstream;
@@ -56,7 +66,10 @@ public class FileManager {
             e.printStackTrace();
         }
     }
-
+    /**
+     * Updates the .txt file after every command, through TaskManager.writeToFIle().
+     * @param line String input to write to the file.
+     */
     public void saveToFile(String line) {
         File file = new File(filePath);
         FileWriter fr = null;
@@ -67,7 +80,6 @@ public class FileManager {
         } catch (IOException e) {
             e.printStackTrace();
         } finally {
-
             try {
                 if (fr != null) {
                     fr.close();

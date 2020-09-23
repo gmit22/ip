@@ -2,15 +2,20 @@ package tasks;
 
 public class Deadline extends Task {
     String by;
-
+    /**
+     * Constructor
+     * @param description Description of the task.
+     * @param by Deadline for the task.
+     */
     public Deadline(String description, String by) {
         super(description);
         this.by = by;
         setDateTime(by);
     }
-    public String getBy(){
-        return by;
-    }
+    /**
+     * String representation of Deadline task.
+     * @return String representation.
+     */
     @Override
     public String toString() {
         String dateFormatted = "";
@@ -21,5 +26,10 @@ public class Deadline extends Task {
         }
         return "[D]" + super.toString() + " (by: " + dateFormatted + ")";
     }
-
+    /**
+     * @return String parameter details of the object.
+     */
+    public String getBy(){
+        return by;
+    }
 }
