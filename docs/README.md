@@ -55,7 +55,7 @@ Adds a `task` with an attached timing/venue.
     ```
     ------------------------------------------------------------
         Got it. I've added this to your custom-list: 
-            [E][X] attend class (at: Aug 10 2021 12:00:00)
+            [T][X] attend class (at: Aug 10 2021 12:00:00)
         Now you have 2 tasks in your list :)
     ------------------------------------------------------------
     ```
@@ -69,17 +69,18 @@ Adds a `task` with to-do description for task to be done.
   * `todo get groceries`
 * Expected outcome:
     ```
-   	------------------------------------------------------------
-   	    Got it. I've added this to your custom-list: 
-   		    [T][X] get groceries
-   	    Now you have 3 tasks in your list :)
-   	------------------------------------------------------------
+    ------------------------------------------------------------
+        Got it. I've added this to your custom-list: 
+            [T][X] get groceries
+        Now you have 1 tasks in your list :)
+    ------------------------------------------------------------
     ```
   
 ### List `task`: `list`
 List all the tasks currently stored in Task Manager
 * Usage: `list` 
 * Expected outcome:
+
     ```
     ------------------------------------------------------------
     Here are the tasks in your list:
