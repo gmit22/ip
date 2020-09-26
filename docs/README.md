@@ -135,7 +135,7 @@ Find all `task`s in task manager containing specified keyword in its description
   	------------------------------------------------------------
   	Here are matching tasks in your list:
   		1. [E][✓] attend class (at: Aug 10 2021 12:00:00)
-        2. [T][X] do class work
+            2. [T][X] do class work
   	------------------------------------------------------------
     ```
   
