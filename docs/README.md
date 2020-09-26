@@ -80,7 +80,7 @@ Adds a `task` with to-do description.
 List all the tasks currently stored in Task Manager
 * Usage: `list` 
 * Expected outcome:
-    ````
+    ```
     ------------------------------------------------------------
     Here are the tasks in your list:
     1. [D][X] finish assignment (by: Aug 10 2021 11:59:00)
@@ -88,7 +88,7 @@ List all the tasks currently stored in Task Manager
     3. [T][X] get groceries
     4. [T][X] do class work
     ------------------------------------------------------------
-    ````
+    ```
   
 ### Mark `task` as done: `done`
 Marks a specified `Task` as done. `list` can be used to find index of the relevant `task`. 
