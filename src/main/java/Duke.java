@@ -1,5 +1,5 @@
-import command.Parser;
 import command.CommandExecute;
+import command.Parser;
 import exception.DukeException;
 import file.FileManager;
 import tasks.Task;
@@ -134,6 +134,8 @@ public class Duke {
                 }
             } catch (DukeException e) {
                 ui.printError(e.toString());
+            } catch (StringIndexOutOfBoundsException e) {
+                ui.printError("\t Index out of bound. Please check your inout format.");
             }
             try {
                 taskList.writeToFile();
