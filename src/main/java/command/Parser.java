@@ -7,14 +7,14 @@ import java.time.LocalDate;
 import java.time.LocalTime;
 import java.time.format.DateTimeParseException;
 
-public class Command {
+public class Parser {
 
     private String message;
     /**
      * Constructor.
      * @param message Command inputted by the user.
      */
-    public Command(String message) {
+    public Parser(String message) {
         this.message = message;
     }
     /**

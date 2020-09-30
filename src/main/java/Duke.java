@@ -1,4 +1,4 @@
-import command.Command;
+import command.Parser;
 import command.CommandExecute;
 import exception.DukeException;
 import file.FileManager;
@@ -78,7 +78,7 @@ public class Duke {
         Task task;
         String[] taskDetails;
         Scanner in = new Scanner(System.in);
-        Command input = new Command(in.nextLine());
+        Parser input = new Parser(in.nextLine());
 
         //loop runs till the user inputs bye in the cli
         while (true) {
@@ -141,7 +141,7 @@ public class Duke {
                 ui.printFileError();
             }
             ui.printLineSeparator();
-            input = new Command(in.nextLine());
+            input = new Parser(in.nextLine());
         }
     }
 

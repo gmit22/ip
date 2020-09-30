@@ -1,6 +1,6 @@
 package tasks;
 
-import command.Command;
+import command.Parser;
 
 import java.time.LocalDate;
 import java.time.LocalTime;
@@ -87,8 +87,8 @@ public abstract class Task {
      * @param line Contains details regarding date and time, by for deadline, at for event.
      */
     protected void setDateTime(String line) {
-        LocalDate parsedDate = Command.parseDate(line);
-        LocalTime parsedTime = Command.parseTime(line);
+        LocalDate parsedDate = Parser.parseDate(line);
+        LocalTime parsedTime = Parser.parseTime(line);
         if (parsedDate != null) {
             setDate(parsedDate);
         }
