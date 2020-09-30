@@ -3,7 +3,7 @@ Refer to [Setting Up](https://github.com/gmit22/ip/blob/master/README.md) guide 
 
 ## Features 
 ### Add `Task`
-You can add 3 types of `task`s to the task manager: `Deadline`, `Event` and `Todo`.
+You can add 3 types of `task` to the task manager: `Deadline`, `Event` and `Todo`.
 
 ### Delete `Task`
 Removes a `task` from the task manager.
@@ -12,7 +12,7 @@ Removes a `task` from the task manager.
 Find `task`s containing specified keyword in its description.
 
 ### List `Task`
-List all the `task`s contained in the task manager.
+List all the `task` contained in the task manager.
 
 ### Mark `task` done
 Mark the specified `task` in task manager as done.
@@ -21,7 +21,7 @@ Mark the specified `task` in task manager as done.
 Exit the application.
 
 ### Store `task` 
-Stores the `task`s updated in task manager in a `.txt` file.
+Stores the `task` updated in task manager in a `.txt` file.
 
 ## Usage
 
@@ -91,7 +91,7 @@ List all the tasks currently stored in Task Manager
     ```
   
 ### Mark `task` as done: `done`
-Marks a specified `Task` as done. `list` can be used to find index of the relevant `task`. 
+Marks a specified `task` as done. `list` can be used to find index of the relevant `task`. 
 * Format: done <taskNumber>
 * Constraints
   * taskNumber must be within the limits of tasks stored in the task manager.
@@ -107,7 +107,7 @@ Marks a specified `Task` as done. `list` can be used to find index of the releva
     ```
 
 ### Delete `task` : `delete`
-Remove a specified `Task` from the task manager. `list` can be used to find index of the relevant `task`.
+Remove a specified `task` from the task manager. `list` can be used to find index of the relevant `task`.
 * Format: delete <taskNumber>
 * Constraints
   * taskNumber must be within the limits of tasks stored in the task manager.
@@ -124,7 +124,7 @@ Remove a specified `Task` from the task manager. `list` can be used to find inde
     ```
   
 ### Find `task` : `find`
-Find all `task`s in task manager containing specified keyword in its description.
+Find all `task` in task manager containing specified keyword in its description.
 * Format: find <keyword>
 * Constraints:
   * If no matching task found, returns a no matching statement.
