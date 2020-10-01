@@ -1,2 +1,0 @@
-E | 1 | go for dinner | 2020-03-03 19:00
-D | 0 | submit project | 2020-10-01 23:59

@@ -1,8 +1,8 @@
+	File created at location: C:\Users\gunit\OneDrive\Desktop\ip\text-ui-test\data\data.txt
 	------------------------------------------------------------
-	Hello! I'm Duke
+	Hello Master! I'm Dobby
 	What can I do for you?
 	------------------------------------------------------------
-	File created at location: C:\Users\gunit\OneDrive\Desktop\ip\text-ui-test\data\data.txt
 	------------------------------------------------------------
 	Got it. I've added this to your custom-list:
 		[T][✘] read book
@@ -59,7 +59,7 @@
 	4. [D][✘] do homework (by: whenever)
 	------------------------------------------------------------
 	------------------------------------------------------------
-	Bye! Hope to see you again soon!
+	Bye! Dobby is now free!
 	You currently have 3 tasks left
 	Happy to help you organize work. Anywhere, anytime!
 	------------------------------------------------------------
