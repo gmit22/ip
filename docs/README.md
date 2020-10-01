@@ -24,8 +24,8 @@ Exit the application.
 Stores the `task` updated in task manager in a `.txt` file.
 
 ## Usage
-| :memo:         | Words in <> braces are parameters|
-|----------------|----------------------------------|
+| :memo:         | Words in `<userInput>` are parameters.|
+|----------------|---------------------------------------|
 ### Adding a `Deadline` Task - `deadline`
 Adds a `task` which has to be completed by the mentioned deadline.
 * Format: `deadline <description> /by <duedate>`
