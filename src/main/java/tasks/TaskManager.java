@@ -61,7 +61,7 @@ public class TaskManager {
      */
     public static Task addToDo(String toDoDescription) throws DukeException {
         try {
-            ToDo todo = new ToDo(toDoDescription);
+            ToDo todo = new ToDo(toDoDescription.substring(5).trim());
             addTask(todo);
             return todo;
         } catch (StringIndexOutOfBoundsException e) {
@@ -92,7 +92,7 @@ public class TaskManager {
      */
     public static ArrayList<Task> findTask(String keyword){
         ArrayList<Task> foundTasks = new ArrayList<>(MAX_TASKS);
-
+        keyword = keyword.substring(5).trim();
         for (Task task: taskList){
             if (task.description.contains(keyword)){
                 foundTasks.add(task);
@@ -101,11 +101,12 @@ public class TaskManager {
         return foundTasks;
     }
     /**
-     * @param id Id of the task to be deleted.
+     * @param input input of the task to be deleted.
      * @return Task object deleted from the taskList.
      */
-    public static Task deleteTask(int id) {
+    public static Task deleteTask(String input) {
         Task task= null;
+        int id = Integer.parseInt(input.substring(7));
 
         if (id <= taskCount) {
             task = taskList.get(id - 1);
@@ -128,6 +129,7 @@ public class TaskManager {
         } else if (taskNumber > taskCount) {
             throw new DukeException(ExceptionType.INVALID_NUMBER);
         } else {
+
             return TaskManager.markAsDone(taskNumber);
         }
     }
@@ -235,5 +237,26 @@ public class TaskManager {
             lines.append("\n");
         }
         fileManager.saveToFile(lines.toString());
+    }
+    /**
+     * Creates a data.txt file if not existing.
+     * Creates a TaskManager object to update and retrieve data from the .txt file.
+     **/
+    public static TaskManager createTaskManager(FileManager fileManager) throws IOException {
+        // Will loop as long as FileNotFoundException is caught, and file is not created
+        while (true) {
+            try {
+                return new TaskManager(fileManager);
+            } catch (FileNotFoundException | DukeException e) {
+                // Create file if not found
+                try {
+                    fileManager.createFile();
+                } catch (IOException err) {
+                    throw err;
+                } catch (Exception exception) {
+                    exception.printStackTrace();
+                }
+            }
+        }
     }
 }

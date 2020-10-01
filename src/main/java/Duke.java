@@ -2,16 +2,13 @@ import command.CommandExecute;
 import command.Parser;
 import exception.DukeException;
 import file.FileManager;
-import tasks.Task;
 import tasks.TaskManager;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Duke {
@@ -39,7 +36,7 @@ public class Duke {
         fileManager = new FileManager(FILE_PATH.toString());
         // Create TaskManager
         try {
-            taskList = createTaskManager(fileManager);
+            taskList = TaskManager.createTaskManager(fileManager);
         } catch (IOException e) {
             ui.printError(e.getMessage());
         }
@@ -47,27 +44,7 @@ public class Duke {
     public static void main(String[] args) {
         new Duke().run();
     }
-    /**
-     * Creates a data.txt file if not existing.
-     * Creates a TaskManager object to update and retrieve data from the .txt file.
-     **/
-    private static TaskManager createTaskManager(FileManager fileManager) throws IOException {
-        // Will loop as long as FileNotFoundException is caught, and file is not created
-        while (true) {
-            try {
-                return new TaskManager(fileManager);
-            } catch (FileNotFoundException | DukeException e) {
-                // Create file if not found
-                try {
-                    fileManager.createFile();
-                } catch (IOException err) {
-                    throw err;
-                } catch (Exception exception) {
-                    exception.printStackTrace();
-                }
-            }
-        }
-    }
+
     /**
      * Runs the task scheduler.
      * Manages the messages shown to the user as the output.
@@ -75,7 +52,6 @@ public class Duke {
      */
     public void run() {
         ui.printGreeting();
-        Task task;
         String[] taskDetails;
         Scanner in = new Scanner(System.in);
         Parser input = new Parser(in.nextLine());
@@ -87,43 +63,33 @@ public class Duke {
                 ui.printLineSeparator();
                 switch (type) {
                 case MARK_DONE:
-                    int taskNumber = input.extractTaskNumber();
-                    task = TaskManager.taskDone(taskNumber);
-                    ui.printTaskDone(task);
+                    ui.printTaskDone(TaskManager.taskDone(input.extractTaskNumber()));
                     break;
                 case LIST:
                     //print list of items
                     ui.listTasks(taskList);
                     break;
                 case TODO:
-                    String toDoTask = input.getMessage().substring(5).trim();
-                    task = TaskManager.addToDo(toDoTask);
-                    ui.printTaskAddedMessage(task, taskList.getTaskCount());
+                    ui.printTaskAddedMessage(TaskManager.addToDo(input.getMessage()), taskList.getTaskCount());
                     break;
                 case DEADLINE:
                     String deadlineTask = input.getMessage().substring(9).trim();
                     taskDetails = deadlineTask.trim().split(TASK_BY);
-                    task = TaskManager.addDeadline(taskDetails);
-                    ui.printTaskAddedMessage(task, taskList.getTaskCount());
+                    ui.printTaskAddedMessage(TaskManager.addDeadline(taskDetails), taskList.getTaskCount());
                     break;
                 case EVENT:
                     String eventTask = input.getMessage().substring(6);
                     taskDetails = eventTask.trim().split(TASK_AT);
-                    task = TaskManager.addEvent(taskDetails);
-                    ui.printTaskAddedMessage(task, taskList.getTaskCount());
+                    ui.printTaskAddedMessage(TaskManager.addEvent(taskDetails), taskList.getTaskCount());
                     break;
                 case EXIT:
                     ui.exit(taskList);
                     break;
                 case DELETE:
-                    int id = Integer.parseInt(input.getMessage().substring(7));
-                    task = TaskManager.deleteTask(id);
-                    ui.removeTask(task, taskList.getTaskCount());
+                    ui.removeTask(TaskManager.deleteTask(input.getMessage()), taskList.getTaskCount());
                     break;
                 case FIND:
-                    String keyWord = input.getMessage().substring(5).trim();
-                    ArrayList<Task> foundTasks = TaskManager.findTask(keyWord);
-                    ui.printFoundTasks(foundTasks);
+                    ui.printFoundTasks(TaskManager.findTask(input.getMessage()));
                     break;
                 default:
                     ui.printCommandNotFound();
@@ -135,7 +101,7 @@ public class Duke {
             } catch (DukeException e) {
                 ui.printError(e.toString());
             } catch (StringIndexOutOfBoundsException e) {
-                ui.printError("\t Index out of bound. Please check your inout format.");
+                ui.printError("\t Index out of bound. Please check your input format.");
             }
             try {
                 taskList.writeToFile();
@@ -146,5 +112,4 @@ public class Duke {
             input = new Parser(in.nextLine());
         }
     }
-
 }

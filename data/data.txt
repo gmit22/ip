@@ -1,4 +1,2 @@
-D | 0 | finish assignment | 2021-08-10 11:59
-E | 1 | attend class | 2021-08-10 12:00
-E | 1 | hello sir | 2020/03/03 12:29
-E | 0 | hello sir | 2020-03-03 12:29
+E | 1 | go for dinner | 2020-03-03 19:00
+D | 0 | submit project | 2020-10-01 23:59
