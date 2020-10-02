@@ -1,5 +1,11 @@
 # User Guide
-Refer to [Setting Up](https://github.com/gmit22/ip/blob/master/README.md) guide for instructions to set up the project in IntelliJ.
+##Setting Up
+
+*Refer to [Setting Up](https://github.com/gmit22/ip/blob/master/README.md) guide for instructions to set up the
+ project in IntelliJ.
+*Download the [JAR file](https://github.com/gmit22/ip/releases/download/V0.2/ip.jar) 
+ and run the command `java -jar ip.jar`
+
 
 ## Features 
 ### Add `Task`
