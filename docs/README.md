@@ -16,7 +16,7 @@ You can add 3 types of `task` to the task manager: `Deadline`, `Event` and `Todo
 Removes a `task` from the task manager.
 
 ### Find `Task`
-Find `task`s containing specified keyword in its description.
+Find `task` containing specified keyword in its description.
 
 ### List `Task`
 List all the `task` contained in the task manager.
