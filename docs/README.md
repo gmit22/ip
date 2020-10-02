@@ -1,6 +1,6 @@
 # User Guide
 ## Setting Up
-Prerequisites : [Java 11] (https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
+Prerequisites : [Java 11](https://www.oracle.com/java/technologies/javase-jdk11-downloads.html)
 * Refer to [Setting Up](https://github.com/gmit22/ip/blob/master/README.md) guide for instructions to set up the
  project in IntelliJ.
  
