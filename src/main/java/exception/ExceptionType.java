@@ -12,13 +12,16 @@ public enum ExceptionType {
     INVALID_NUMBER("\tThat's not a valid item number for any task in your list!");
 
     private String message;
+
     /**
      * Constructor.
+     *
      * @param message
      */
     ExceptionType(String message) {
         this.message = message;
     }
+
     /**
      * @return String type message relevant to the exception.
      */

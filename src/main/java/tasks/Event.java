@@ -2,16 +2,19 @@ package tasks;
 
 public class Event extends Task {
     String at;
+
     /**
      * Constructor
+     *
      * @param description Description of the eventTask.
-     * @param at Location, timing/date of the eventTask.
+     * @param at          Location, timing/date of the eventTask.
      */
     public Event(String description, String at) {
         super(description);
         this.at = at;
         setDateTime(at);
     }
+
     /**
      * @return String representation of eventTask.
      */
@@ -25,6 +28,7 @@ public class Event extends Task {
         }
         return "[E]" + super.toString() + " (at: " + dateFormatted + ")";
     }
+
     /**
      * @return String parameter details of the object.
      */

@@ -3,7 +3,7 @@ package command;
 /**
  * Constant variables to process command type inputted by the user.
  */
-public enum CommandExecute {
+public enum CommandExtract {
     EXIT,
     LIST,
     MARK_DONE,
